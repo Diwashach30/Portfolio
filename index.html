@@ -28,6 +28,7 @@
         }
         nav { 
             display: flex; 
+            flex-wrap: wrap;
             justify-content: center; 
             background: #333; 
             padding: 15px 0; 
@@ -85,6 +86,25 @@
             color: white; 
             margin-top: 20px; 
         }
+        @media (max-width: 768px) {
+            section {
+                padding: 20px;
+                width: 90%;
+            }
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav a {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+            }
+            ul li {
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -102,7 +122,7 @@
     </nav>
     <section id="about">
         <h2>About Me</h2>
-        <p>I am a Python developer with a strong understanding of programming, problem-solving, and software development. I am eager to apply my knowledge to real-world projects, and I am always looking for opportunities to learn and grow in this field.</p>
+        <p>I am a Python and Mobile App Developer with a strong understanding of programming, problem-solving, and software development. I am eager to apply my knowledge to real-world projects, especially in agricultural technology.</p>
     </section>
     <section id="skills">
         <h2>Skills</h2>
@@ -129,7 +149,7 @@
         <h2>Experience</h2>
         <p>Intern - Mobile App Developer (Flutter) at Sarbatra Inc (June 2022 - Sept 2022)</p>
         <p>Mobile App Developer at Pastel Software Solutions (Oct 2022 - Dec 2024)</p>
-        <p>Python Trainee at Technology Channel Pvt Ltd (Jan 2025 - March 2025)</p>
+        <p>Python Trainee at Technology Channel Pvt Ltd (Jan 2025 - Present)</p>
     </section>
     <section id="contact">
         <h2>Contact</h2>
