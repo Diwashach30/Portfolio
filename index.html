@@ -1,47 +1,57 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Diwash Acharya | Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
-
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <style>
     :root {
-      --bg-dark: #1e1e2e;
-      --bg-light: #f5f5f5;
-      --text-dark: #ffffff;
-      --text-light: #111111;
-      --card-dark: #2a2a3c;
-      --card-light: #ffffff;
-      --accent: #00c6ff;
+      --bg-color: #1e1e2e;
+      --text-color: #ffffff;
+      --section-bg: #2a2a3c;
     }
-
-    [data-theme="dark"] {
-      background-color: var(--bg-dark);
-      color: var(--text-dark);
+    [data-theme='light'] {
+      --bg-color: #f2f2f2;
+      --text-color: #000000;
+      --section-bg: #ffffff;
     }
-
-    [data-theme="light"] {
-      background-color: var(--bg-light);
-      color: var(--text-light);
-    }
-
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      transition: background-color 0.5s, color 0.5s;
+      background: var(--bg-color);
+      color: var(--text-color);
+      scroll-behavior: smooth;
     }
-
+    #progressBar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 5px;
+      background: #00c6ff;
+      z-index: 9999;
+    }
     header {
       background: linear-gradient(135deg, #6a11cb, #2575fc);
       color: #fff;
       padding: 40px 20px;
       text-align: center;
+      position: relative;
     }
-
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #444;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
     header img {
       width: 150px;
       height: 150px;
@@ -49,7 +59,6 @@
       margin-top: 10px;
       border: 4px solid white;
     }
-
     nav {
       display: flex;
       flex-wrap: wrap;
@@ -61,7 +70,6 @@
       width: 100%;
       z-index: 1000;
     }
-
     nav a {
       color: #fff;
       padding: 15px 20px;
@@ -69,59 +77,41 @@
       transition: 0.3s;
       font-weight: bold;
     }
-
     nav a:hover {
       background: #6a11cb;
       border-radius: 5px;
     }
-
     section {
       padding: 40px;
       max-width: 900px;
       margin: auto;
-      background: var(--card-dark);
+      background: var(--section-bg);
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
       margin-top: 20px;
-      transition: background 0.5s;
     }
-
-    [data-theme="light"] section {
-      background: var(--card-light);
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
     h2 {
-      color: var(--accent);
+      color: #00c6ff;
       text-align: center;
     }
-
     ul {
       list-style: none;
       padding: 0;
     }
-
     ul li {
       background: #444;
       margin: 10px 0;
       padding: 10px;
       border-radius: 5px;
     }
-
-    [data-theme="light"] ul li {
-      background: #ddd;
-    }
-
     a {
-      color: var(--accent);
+      color: #00c6ff;
       text-decoration: none;
       font-weight: bold;
     }
-
     a:hover {
       text-decoration: underline;
     }
-
     footer {
       text-align: center;
       padding: 20px;
@@ -129,99 +119,58 @@
       color: white;
       margin-top: 20px;
     }
-
-    .toggle-theme {
-      background: transparent;
-      border: 2px solid white;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    [data-theme="light"] .toggle-theme {
-      border-color: black;
-      color: black;
-    }
-
-    .toggle-theme:hover {
-      background: white;
-      color: black;
-    }
-
     @media (max-width: 768px) {
       section {
         padding: 20px;
         width: 90%;
       }
-
       nav {
         flex-direction: column;
         align-items: center;
       }
-
       nav a {
         display: block;
         width: 100%;
         text-align: center;
         padding: 10px;
       }
-
       ul li {
         text-align: center;
       }
     }
-
-    /* Scroll Progress Bar */
-    #progressBar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 5px;
-      background: #00c6ff;
-      width: 0%;
-      z-index: 10000;
-    }
   </style>
 </head>
 <body>
-
-  <!-- Scroll Progress Bar -->
   <div id="progressBar"></div>
-
-  <header data-aos="fade-down">
+  <header>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
     <img src="https://media.licdn.com/dms/image/v2/D5603AQEe6laFVbxooQ/profile-displayphoto-shrink_800_800/B56ZU8swQ5HEAc-/0/1740480121159?e=1747267200&v=beta&t=Hh0aC-9h1WqqMz_tbsr-dP5rZ7d0M94Zmp6MiItJJgA" alt="Diwash Acharya">
     <h1>Diwash Sharma Acharya</h1>
     <p>Mobile App Developer | Python Developer | Data Science Enthusiast</p>
   </header>
-
   <nav>
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
     <a href="#experience">Experience</a>
+    <a href="#misc">Miscellaneous</a>
     <a href="#contact">Contact</a>
   </nav>
-
-  <section id="about" data-aos="fade-right">
+  <section id="about" data-aos="fade-up">
     <h2>About Me</h2>
     <p>I am a Mobile App and Python Developer with a strong understanding of programming, problem-solving, and software development. I am eager to apply my knowledge to real-world projects, especially in modern and AI technology.</p>
   </section>
-
-  <section id="skills" data-aos="fade-left">
+  <section id="skills" data-aos="fade-up">
     <h2>Skills</h2>
     <ul>
       <li>Python, R, Dart, SQL</li>
       <li>API Development (Fast API, REST API)</li>
-      <li>Web Development (Django, JAVA SCRIPT)</li>
-      <li>Database Management (MySQL, FIREBASE)</li>
+      <li>Web Development (Django, JavaScript)</li>
+      <li>Database Management (MySQL, Firebase)</li>
       <li>Version Control (Git, GitHub)</li>
       <li>Libraries: NumPy, Pandas, Tkinter</li>
     </ul>
   </section>
-
   <section id="projects" data-aos="fade-up">
     <h2>Projects</h2>
     <ul>
@@ -232,13 +181,18 @@
       <li><a href="https://github.com/Diwashach30/PythonProjects/blob/main/weather_app.py">Weather App</a></li>
     </ul>
   </section>
-
   <section id="experience" data-aos="fade-up">
     <h2>Experience</h2>
     <p>Intern - Mobile App Developer (Flutter) at Sarbatra Inc (June 2022 - Sept 2022)</p>
     <p>Mobile App Developer at Pastel Software Solutions (Oct 2022 - Present)</p>
   </section>
-
+  <section id="misc" data-aos="fade-up">
+    <h2>Miscellaneous Activities</h2>
+    <ul>
+      <li><a href="https://drive.google.com/file/d/xyz/view?usp=sharing" target="_blank">Certificate of Participation - Hackathon</a></li>
+      <li><a href="https://drive.google.com/file/d/abc/view?usp=sharing" target="_blank">Research Paper - AI in Education</a></li>
+    </ul>
+  </section>
   <section id="contact" data-aos="fade-up">
     <h2>Contact</h2>
     <p>Phone: +9779865206691</p>
@@ -246,34 +200,24 @@
     <p>LinkedIn: <a href="https://www.linkedin.com/in/diwash-a-952994220/">Profile</a></p>
     <p>GitHub: <a href="https://github.com/Diwashach30">Profile</a></p>
   </section>
-
-  <!-- Theme Toggle Button at Bottom -->
-  <div style="text-align:center; margin: 40px 0;" data-aos="fade-up">
-    <button class="toggle-theme" onclick="toggleTheme()">Toggle Theme</button>
-  </div>
-
-  <footer data-aos="fade-in">
+  <footer>
     <p>&copy; 2025 Diwash Sharma Acharya. All Rights Reserved.</p>
   </footer>
 
-  <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init();
 
-    // Scroll Progress Bar
     window.onscroll = function () {
-      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (scrollTop / scrollHeight) * 100;
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
       document.getElementById("progressBar").style.width = scrolled + "%";
     };
 
-    // Theme Toggle
     function toggleTheme() {
-      const htmlTag = document.documentElement;
-      const currentTheme = htmlTag.getAttribute("data-theme");
-      htmlTag.setAttribute("data-theme", currentTheme === "dark" ? "light" : "dark");
+      const theme = document.documentElement.getAttribute("data-theme");
+      document.documentElement.setAttribute("data-theme", theme === "light" ? "dark" : "light");
     }
   </script>
 </body>
