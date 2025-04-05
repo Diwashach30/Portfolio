@@ -1,140 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Diwash Acharya | Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+
   <style>
     :root {
-      --bg: #1e1e2e;
-      --text: #ffffff;
-      --primary: #2575fc;
-      --secondary: #2a2a3c;
-      --card: rgba(255, 255, 255, 0.05);
-    }
-    [data-theme="light"] {
-      --bg: #f5f5f5;
-      --text: #1e1e2e;
-      --primary: #2575fc;
-      --secondary: #ffffff;
-      --card: rgba(0, 0, 0, 0.05);
+      --bg-dark: #1e1e2e;
+      --bg-light: #f5f5f5;
+      --text-dark: #ffffff;
+      --text-light: #111111;
+      --card-dark: #2a2a3c;
+      --card-light: #ffffff;
+      --accent: #00c6ff;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
+    [data-theme="dark"] {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    [data-theme="light"] {
+      background-color: var(--bg-light);
+      color: var(--text-light);
     }
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .progress-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 5px;
-      background: var(--primary);
-      width: 0%;
-      z-index: 9999;
-      transition: width 0.25s ease-out;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.5s, color 0.5s;
     }
 
     header {
       background: linear-gradient(135deg, #6a11cb, #2575fc);
       color: #fff;
+      padding: 40px 20px;
       text-align: center;
-      padding: 60px 20px;
-      clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
     }
 
     header img {
       width: 150px;
       height: 150px;
       border-radius: 50%;
-      border: 4px solid white;
-      margin-bottom: 20px;
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-    }
-
-    header p {
-      font-size: 1.1rem;
       margin-top: 10px;
+      border: 4px solid white;
     }
 
     nav {
-      background: #101010;
       display: flex;
-      justify-content: center;
       flex-wrap: wrap;
+      justify-content: center;
+      background: #333;
       padding: 15px 0;
       position: sticky;
       top: 0;
-      z-index: 999;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      width: 100%;
+      z-index: 1000;
     }
 
     nav a {
       color: #fff;
+      padding: 15px 20px;
       text-decoration: none;
-      padding: 12px 20px;
-      margin: 5px;
-      font-weight: bold;
       transition: 0.3s;
-      border-radius: 5px;
+      font-weight: bold;
     }
 
     nav a:hover {
-      background: #2575fc;
-      color: white;
-    }
-
-    .toggle-theme {
-      position: absolute;
-      right: 20px;
-      top: 15px;
-      background: transparent;
-      border: 2px solid white;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .toggle-theme:hover {
-      background: #ffffff;
-      color: #000;
+      background: #6a11cb;
+      border-radius: 5px;
     }
 
     section {
-      padding: 60px 30px;
+      padding: 40px;
       max-width: 900px;
       margin: auto;
-      background: var(--card);
-      margin-top: 40px;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0, 198, 255, 0.08);
-      backdrop-filter: blur(10px);
-      transition: background 0.3s;
+      background: var(--card-dark);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      margin-top: 20px;
+      transition: background 0.5s;
+    }
+
+    [data-theme="light"] section {
+      background: var(--card-light);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     h2 {
+      color: var(--accent);
       text-align: center;
-      color: var(--primary);
-      margin-bottom: 30px;
-      font-size: 2rem;
     }
 
     ul {
@@ -143,21 +102,20 @@
     }
 
     ul li {
-      background: var(--secondary);
+      background: #444;
       margin: 10px 0;
-      padding: 12px 15px;
-      border-radius: 10px;
-      transition: 0.2s;
+      padding: 10px;
+      border-radius: 5px;
     }
 
-    ul li:hover {
-      transform: scale(1.02);
-      background: #3a3a50;
+    [data-theme="light"] ul li {
+      background: #ddd;
     }
 
     a {
-      color: var(--primary);
+      color: var(--accent);
       text-decoration: none;
+      font-weight: bold;
     }
 
     a:hover {
@@ -166,18 +124,37 @@
 
     footer {
       text-align: center;
-      padding: 30px 10px;
-      background: #111;
-      margin-top: 40px;
+      padding: 20px;
+      background: #333;
+      color: white;
+      margin-top: 20px;
+    }
+
+    .toggle-theme {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    [data-theme="light"] .toggle-theme {
+      border-color: black;
+      color: black;
+    }
+
+    .toggle-theme:hover {
+      background: white;
+      color: black;
     }
 
     @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-      }
-
       section {
-        padding: 40px 20px;
+        padding: 20px;
+        width: 90%;
       }
 
       nav {
@@ -186,35 +163,47 @@
       }
 
       nav a {
+        display: block;
         width: 100%;
         text-align: center;
+        padding: 10px;
       }
 
-      .toggle-theme {
-        position: static;
-        margin-top: 10px;
+      ul li {
+        text-align: center;
       }
+    }
+
+    /* Scroll Progress Bar */
+    #progressBar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 5px;
+      background: #00c6ff;
+      width: 0%;
+      z-index: 10000;
     }
   </style>
 </head>
 <body>
 
-  <div class="progress-bar" id="progress-bar"></div>
-
-  <nav data-aos="fade-up">
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#experience">Experience</a>
-    <a href="#contact">Contact</a>
-    <button class="toggle-theme" onclick="toggleTheme()">Toggle Theme</button>
-  </nav>
+  <!-- Scroll Progress Bar -->
+  <div id="progressBar"></div>
 
   <header data-aos="fade-down">
     <img src="https://media.licdn.com/dms/image/v2/D5603AQEe6laFVbxooQ/profile-displayphoto-shrink_800_800/B56ZU8swQ5HEAc-/0/1740480121159?e=1747267200&v=beta&t=Hh0aC-9h1WqqMz_tbsr-dP5rZ7d0M94Zmp6MiItJJgA" alt="Diwash Acharya">
     <h1>Diwash Sharma Acharya</h1>
     <p>Mobile App Developer | Python Developer | Data Science Enthusiast</p>
   </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
   <section id="about" data-aos="fade-right">
     <h2>About Me</h2>
@@ -225,15 +214,15 @@
     <h2>Skills</h2>
     <ul>
       <li>Python, R, Dart, SQL</li>
-      <li>API Development (FastAPI, REST API)</li>
-      <li>Web Development (Django, JavaScript)</li>
-      <li>Database Management (MySQL, Firebase)</li>
+      <li>API Development (Fast API, REST API)</li>
+      <li>Web Development (Django, JAVA SCRIPT)</li>
+      <li>Database Management (MySQL, FIREBASE)</li>
       <li>Version Control (Git, GitHub)</li>
       <li>Libraries: NumPy, Pandas, Tkinter</li>
     </ul>
   </section>
 
-  <section id="projects" data-aos="zoom-in">
+  <section id="projects" data-aos="fade-up">
     <h2>Projects</h2>
     <ul>
       <li><a href="https://github.com/Diwashach30/PythonProjects/blob/main/password_generator.py">Python Password Generator</a></li>
@@ -244,10 +233,10 @@
     </ul>
   </section>
 
-  <section id="experience" data-aos="flip-left">
+  <section id="experience" data-aos="fade-up">
     <h2>Experience</h2>
-    <p><strong>Intern:</strong> Mobile App Developer (Flutter) at Sarbatra Inc (June 2022 - Sept 2022)</p>
-    <p><strong>Mobile App Developer:</strong> Pastel Software Solutions (Oct 2022 - Present)</p>
+    <p>Intern - Mobile App Developer (Flutter) at Sarbatra Inc (June 2022 - Sept 2022)</p>
+    <p>Mobile App Developer at Pastel Software Solutions (Oct 2022 - Present)</p>
   </section>
 
   <section id="contact" data-aos="fade-up">
@@ -258,36 +247,34 @@
     <p>GitHub: <a href="https://github.com/Diwashach30">Profile</a></p>
   </section>
 
+  <!-- Theme Toggle Button at Bottom -->
+  <div style="text-align:center; margin: 40px 0;" data-aos="fade-up">
+    <button class="toggle-theme" onclick="toggleTheme()">Toggle Theme</button>
+  </div>
+
   <footer data-aos="fade-in">
     <p>&copy; 2025 Diwash Sharma Acharya. All Rights Reserved.</p>
   </footer>
 
-  <!-- AOS JS -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init({
-      duration: 1200,
-      once: true
-    });
+    AOS.init();
 
-    // Scroll progress bar
-    const progressBar = document.getElementById('progress-bar');
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.body.scrollHeight - window.innerHeight;
-      const scrollPercent = (scrollTop / docHeight) * 100;
-      progressBar.style.width = scrollPercent + '%';
-    });
+    // Scroll Progress Bar
+    window.onscroll = function () {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (scrollTop / scrollHeight) * 100;
+      document.getElementById("progressBar").style.width = scrolled + "%";
+    };
 
-    // Theme toggle
+    // Theme Toggle
     function toggleTheme() {
-      const html = document.documentElement;
-      const current = html.getAttribute('data-theme');
-      html.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+      const htmlTag = document.documentElement;
+      const currentTheme = htmlTag.getAttribute("data-theme");
+      htmlTag.setAttribute("data-theme", currentTheme === "dark" ? "light" : "dark");
     }
-
-    // Set default theme
-    document.documentElement.setAttribute('data-theme', 'dark');
   </script>
 </body>
 </html>
