@@ -69,12 +69,18 @@
 
       <section id="projects">
         <h2 class="text-3xl font-semibold text-accent mb-4">Projects</h2>
-        <ul class="space-y-3">
+
+        <h3 class="text-2xl font-semibold text-accentLight mt-6 mb-2">Basic Projects</h3>
+        <ul class="space-y-2 list-disc list-inside">
           <li><a href="https://github.com/Diwashach30/PythonProjects/blob/main/password_generator.py" class="text-blue-500 hover:underline">Password Generator</a></li>
           <li><a href="https://github.com/Diwashach30/PythonProjects/blob/main/pomodoro.py" class="text-blue-500 hover:underline">Pomodoro Timer</a></li>
+          <li><a href="https://github.com/Diwashach30/PythonProjects/blob/main/weather_app.py" class="text-blue-500 hover:underline">Weather App</a></li>
+        </ul>
+
+        <h3 class="text-2xl font-semibold text-accentLight mt-8 mb-2">Advanced Projects</h3>
+        <ul class="space-y-2 list-disc list-inside">
           <li><a href="https://github.com/Diwashach30/python-learning/blob/main/mba_chai.py" class="text-blue-500 hover:underline">CHAI GPT - Tea Shop</a></li>
           <li><a href="https://github.com/Diwashach30/python-learning/blob/main/graph_mat.py" class="text-blue-500 hover:underline">Student Visualization</a></li>
-          <li><a href="https://github.com/Diwashach30/PythonProjects/blob/main/weather_app.py" class="text-blue-500 hover:underline">Weather App</a></li>
         </ul>
       </section>
 
@@ -88,10 +94,17 @@
 
       <section id="misc">
         <h2 class="text-3xl font-semibold text-accent mb-4">Miscellaneous</h2>
-        <ul class="space-y-2">
+        <ul class="space-y-2 mb-6">
           <li><a href="https://drive.google.com/file/d/xyz/view?usp=sharing" class="text-blue-500 hover:underline" target="_blank">Hackathon Certificate</a></li>
           <li><a href="https://drive.google.com/file/d/abc/view?usp=sharing" class="text-blue-500 hover:underline" target="_blank">AI in Education - Research Paper</a></li>
         </ul>
+
+        <!-- 🖼️ Photo Storage -->
+        <div>
+          <h3 class="text-2xl font-semibold text-accentLight mb-2">Photo Storage</h3>
+          <input type="file" id="photoUpload" accept="image/*" multiple class="mb-4" />
+          <div id="photoPreview" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
+        </div>
       </section>
 
       <section id="contact">
@@ -108,5 +121,24 @@
     <footer class="text-center py-6 bg-gray-900 text-white mt-12">
       &copy; 2025 Diwash Sharma Acharya. All rights reserved.
     </footer>
+
+    <script>
+      const photoUpload = document.getElementById('photoUpload');
+      const photoPreview = document.getElementById('photoPreview');
+
+      photoUpload.addEventListener('change', function () {
+        photoPreview.innerHTML = '';
+        Array.from(photoUpload.files).forEach(file => {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = 'rounded shadow max-h-40 object-cover';
+            photoPreview.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+    </script>
   </body>
 </html>
