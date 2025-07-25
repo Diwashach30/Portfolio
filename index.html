@@ -81,9 +81,10 @@
         <ul class="space-y-2 list-disc list-inside">
           <li><a href="https://github.com/Diwashach30/python-learning/blob/main/mba_chai.py" class="text-blue-500 hover:underline">CHAI GPT - Tea Shop</a></li>
           <li><a href="https://github.com/Diwashach30/python-learning/blob/main/graph_mat.py" class="text-blue-500 hover:underline">Student Visualization</a></li>
+          <li><a href="https://github.com/Diwashach30/SaveSupermarket" class="text-blue-500 hover:underline">Save Supermarket - Retail Billing & Inventory App</a></li>
         </ul>
 
-         <h3 class="text-2xl font-semibold text-accentLight mt-8 mb-2">Data Science Basics Projects</h3>
+        <h3 class="text-2xl font-semibold text-accentLight mt-8 mb-2">Data Science Basics Projects</h3>
         <ul class="space-y-2 list-disc list-inside">
           <li><a href="https://github.com/Diwashach30/python-learning/blob/main/mba_chai.py" class="text-blue-500 hover:underline">Movie Recommendation System</a></li>
           <li><a href="https://github.com/Diwashach30/python-learning/blob/main/graph_mat.py" class="text-blue-500 hover:underline">Stock Price Visualization</a></li>
@@ -105,8 +106,7 @@
           <li><a href=" https://drive.google.com/drive/folders/1-9mx7Q1RbmeGqeuBMCjsfJ0fgQ5FzvL3 " class="text-blue-500 hover:underline" target="_blank"> FrontWeb Training</a></li>
           <li><a href=" https://medium.com/@diwashacharya30/the-role-of-artificial-intelligence-in-vedic-astrology-a-modern-revolution-ef119010897b" class="text-blue-500 hover:underline" target="_blank">AI in Astrology - Article </a></li>
         </ul>
-
-       
+      </section>
 
       <section id="contact">
         <h2 class="text-3xl font-semibold text-accent mb-4">Contact</h2>
@@ -127,7 +127,7 @@
       const photoUpload = document.getElementById('photoUpload');
       const photoPreview = document.getElementById('photoPreview');
 
-      photoUpload.addEventListener('change', function () {
+      photoUpload?.addEventListener('change', function () {
         photoPreview.innerHTML = '';
         Array.from(photoUpload.files).forEach(file => {
           const reader = new FileReader();
