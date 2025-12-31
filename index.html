@@ -1,145 +1,194 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Diwash Acharya | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              primary: '#6366f1',
-              accent: '#D7720C',
-              accentLight: '#E6A54D',
-              darkbg: '#0f172a',
-              lightbg: '#f8fafc'
-            }
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>Diwash Acharya | Motion Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            luxury: '#0B0E14',
+            accent: '#D4AF37',
+            glow: '#FFD369'
           }
         }
       }
-    </script>
-  </head>
-  <body class="bg-lightbg dark:bg-darkbg text-gray-900 dark:text-white font-[Inter]">
-    <section id="hero" class="relative py-20">
-      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10 px-6">
-        <div class="flex-1">
-          <h1 class="text-4xl md:text-6xl font-bold text-accent mb-4">Hi, I’m Diwash Sharma Acharya</h1>
-          <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">Mobile App & Python Developer passionate about AI and Data Science and creating user-friendly experiences.</p>
-          <a href="#contact" class="bg-accent text-white px-6 py-3 rounded-lg shadow hover:bg-accentLight transition">Let's Talk</a>
-        </div>
-        <div class="flex-1 relative">
-          <div class="absolute -left-6 -top-6 w-40 h-40 bg-accentLight rounded-full mix-blend-multiply blur-xl animate-pulse"></div>
-          <img src="https://www.tiktok.com/@diwash.achh?_r=1&_t=ZS-92KAvtZ9aoX
-               alt="Diwash Acharya" 
-               class="rounded-full border-4 border-white relative z-10 w-56 h-56 object-cover mx-auto" />
-        </div>
+    }
+  </script>
+
+  <style>
+    /* Premium motion */
+    * {
+      scroll-behavior: smooth;
+    }
+
+    .cinematic {
+      background: radial-gradient(circle at top, #1a1f2b, #0b0e14);
+    }
+
+    .glow {
+      box-shadow: 0 0 60px rgba(212, 175, 55, 0.25);
+    }
+
+    .smooth {
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    video {
+      will-change: transform;
+    }
+  </style>
+</head>
+
+<body class="bg-luxury text-white font-[Inter] cinematic">
+
+<!-- NAV -->
+<nav class="fixed top-0 w-full z-50 backdrop-blur bg-black/40 border-b border-white/10">
+  <div class="max-w-6xl mx-auto flex justify-between px-6 py-4">
+    <span class="font-bold tracking-wide">DIWASH</span>
+    <div class="space-x-6 text-sm">
+      <a href="#work" class="hover:text-accent smooth">Work</a>
+      <a href="#about" class="hover:text-accent smooth">About</a>
+      <a href="#upload" class="hover:text-accent smooth">Upload Photo</a>
+      <a href="#contact" class="hover:text-accent smooth">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="min-h-screen flex items-center justify-center px-6 pt-32">
+  <div class="grid md:grid-cols-2 gap-16 max-w-6xl w-full">
+    <div>
+      <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+        Motion-Driven <br>
+        <span class="text-accent">Digital Craft</span>
+      </h1>
+      <p class="text-gray-300 max-w-lg">
+        High-end motion, cinematic lighting, and premium interaction design inspired by automotive advertising.
+      </p>
+    </div>
+
+    <div class="relative flex justify-center">
+      <div class="absolute w-72 h-72 rounded-full bg-accent/20 blur-3xl"></div>
+      <img id="heroImage"
+           src="https://via.placeholder.com/300"
+           class="relative z-10 w-60 h-60 rounded-full object-cover border border-white/20 glow smooth">
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work" class="max-w-6xl mx-auto px-6 py-24">
+  <h2 class="text-3xl font-bold mb-12 text-accent">Featured Motion Work</h2>
+
+  <div class="grid md:grid-cols-3 gap-10">
+    <!-- Reel Card -->
+    <div class="group relative overflow-hidden rounded-xl border border-white/10">
+      <video class="w-full h-full object-cover scale-105 group-hover:scale-110 smooth"
+             muted loop preload="metadata">
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      </video>
+      <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 smooth flex items-end p-6">
+        <span class="text-sm text-accent">Concept Car Motion Reel</span>
       </div>
-    </section>
+    </div>
 
-    <nav class="bg-primary text-white flex justify-center gap-6 py-4 sticky top-0 z-50">
-      <a href="#about" class="hover:underline">About</a>
-      <a href="#skills" class="hover:underline">Skills</a>
-      <a href="#projects" class="hover:underline">Projects</a>
-      <a href="#experience" class="hover:underline">Experience</a>
-      <a href="#misc" class="hover:underline">Misc</a>
-      <a href="#contact" class="hover:underline">Contact</a>
-    </nav>
+    <div class="group relative overflow-hidden rounded-xl border border-white/10">
+      <video class="w-full h-full object-cover scale-105 group-hover:scale-110 smooth"
+             muted loop preload="metadata">
+        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+      </video>
+      <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 smooth flex items-end p-6">
+        <span class="text-sm text-accent">Luxury UI Motion</span>
+      </div>
+    </div>
 
-    <main class="max-w-5xl mx-auto px-6 py-12 space-y-20">
-      <section id="about">
-        <h2 class="text-3xl font-semibold text-accent mb-4">About Me</h2>
-        <p>I am a dedicated and proactive student striving for academic excellence and personal growth, aiming to graduate with top honors and be recognized as one of the institution's most outstanding students. I am committed to consistently demonstrating leadership, innovation, and perseverance in both academic and extracurricular endeavors, with a strong passion for contributing to the university community and beyond.</p>
-      </section>
+    <div class="group relative overflow-hidden rounded-xl border border-white/10">
+      <video class="w-full h-full object-cover scale-105 group-hover:scale-110 smooth"
+             muted loop preload="metadata">
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      </video>
+      <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 smooth flex items-end p-6">
+        <span class="text-sm text-accent">Brand Ident Animation</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <section id="skills">
-        <h2 class="text-3xl font-semibold text-accent mb-4">Skills</h2>
-        <ul class="grid grid-cols-2 md:grid-cols-3 gap-4 list-disc list-inside">
-          <li>Python, R, Dart, SQL, Java</li>
-          <li>Fast API, REST API</li>
-          <li>Django, JavaScript</li>
-          <li>MySQL, Firebase</li>
-          <li>Git, GitHub</li>
-          <li>NumPy, Pandas, Tkinter</li>
-        </ul>
-      </section>
+<!-- UPLOAD PAGE -->
+<section id="upload" class="max-w-xl mx-auto px-6 py-24">
+  <h2 class="text-3xl font-bold mb-6 text-accent">Upload Passport Photo</h2>
 
-      <section id="projects">
-        <h2 class="text-3xl font-semibold text-accent mb-4">Projects</h2>
+  <div class="border border-white/10 rounded-xl p-8 bg-white/5 backdrop-blur">
+    <input type="file"
+           accept="image/*"
+           id="photoInput"
+           class="block w-full text-sm text-gray-300
+           file:mr-4 file:py-2 file:px-4
+           file:rounded file:border-0
+           file:bg-accent file:text-black
+           hover:file:bg-glow smooth">
 
-        <h3 class="text-2xl font-semibold text-accentLight mt-6 mb-2">Basic Projects</h3>
-        <ul class="space-y-2 list-disc list-inside">
-          <li><a href="https://github.com/Diwashach30/PythonProjects/blob/main/password_generator.py" class="text-blue-500 hover:underline">Password Generator</a></li>
-          <li><a href="https://github.com/Diwashach30/PythonProjects/blob/main/pomodoro.py" class="text-blue-500 hover:underline">Pomodoro Timer</a></li>
-          <li><a href="https://github.com/Diwashach30/PythonProjects/blob/main/weather_app.py" class="text-blue-500 hover:underline">Weather App</a></li>
-        </ul>
+    <p class="text-xs text-gray-400 mt-4">
+      Image updates instantly in hero section. Stored locally in your browser.
+    </p>
+  </div>
+</section>
 
-        <h3 class="text-2xl font-semibold text-accentLight mt-8 mb-2">Advanced Projects</h3>
-        <ul class="space-y-2 list-disc list-inside">
-          <li><a href="https://github.com/Diwashach30/python-learning/blob/main/mba_chai.py" class="text-blue-500 hover:underline">CHAI GPT - Tea Shop</a></li>
-          <li><a href="https://github.com/Diwashach30/python-learning/blob/main/graph_mat.py" class="text-blue-500 hover:underline">Student Visualization</a></li>
-          <li><a href="https://github.com/Diwashach30/SaveSupermarket" class="text-blue-500 hover:underline">Save Supermarket - Retail Billing & Inventory App</a></li>
-        </ul>
+<!-- ABOUT -->
+<section id="about" class="max-w-4xl mx-auto px-6 py-24">
+  <h2 class="text-3xl font-bold mb-6 text-accent">About</h2>
+  <p class="text-gray-300">
+    I blend software engineering with motion design thinking—creating immersive,
+    fluid digital experiences inspired by cinematic storytelling and premium brands.
+  </p>
+</section>
 
-        <h3 class="text-2xl font-semibold text-accentLight mt-8 mb-2">Data Science Basics Projects</h3>
-        <ul class="space-y-2 list-disc list-inside">
-          <li><a href="https://github.com/Diwashach30/python-learning/blob/main/mba_chai.py" class="text-blue-500 hover:underline">Movie Recommendation System</a></li>
-          <li><a href="https://github.com/Diwashach30/python-learning/blob/main/graph_mat.py" class="text-blue-500 hover:underline">Stock Price Visualization</a></li>
-        </ul>
-      </section>
+<!-- CONTACT -->
+<section id="contact" class="text-center py-24">
+  <p class="text-gray-400">Let’s build something cinematic.</p>
+  <p class="mt-4 text-accent">diwashacharya30@gmail.com</p>
+</section>
 
-      <section id="experience">
-        <h2 class="text-3xl font-semibold text-accent mb-4">Experience</h2>
-        <ul class="space-y-2">
-          <li>Intern - Flutter Developer, Pastel Software Solutions (November 2022- May 2023)</li>
-          <li>Mobile App Developer, Sarbatra Inc (June 2023 - Present)</li>
-        </ul>
-      </section>
+<footer class="py-6 text-center text-xs text-gray-500 border-t border-white/10">
+  © 2025 Diwash Acharya
+</footer>
 
-      <section id="misc">
-        <h2 class="text-3xl font-semibold text-accent mb-4">Miscellaneous</h2>
-        <ul class="space-y-2 mb-6">
-          <li><a href="https://drive.google.com/drive/folders/1-0B5XhTuM595Dmj8fq3lQk103_fySn3p " class="text-blue-500 hover:underline" target="_blank">All Miscellaneous Certificates</a></li>
-          <li><a href=" https://drive.google.com/drive/folders/1-9mx7Q1RbmeGqeuBMCjsfJ0fgQ5FzvL3 " class="text-blue-500 hover:underline" target="_blank"> FrontWeb Training</a></li>
-          <li><a href=" https://medium.com/@diwashacharya30/the-role-of-artificial-intelligence-in-vedic-astrology-a-modern-revolution-ef119010897b" class="text-blue-500 hover:underline" target="_blank">AI in Astrology - Article </a></li>
-        </ul>
-      </section>
+<script>
+  // Hover play videos
+  document.querySelectorAll("video").forEach(video => {
+    video.addEventListener("mouseenter", () => video.play());
+    video.addEventListener("mouseleave", () => video.pause());
+  });
 
-      <section id="contact">
-        <h2 class="text-3xl font-semibold text-accent mb-4">Contact</h2>
-        <p><strong>Phone:</strong> +61 434 398 644</p>
-        <p><strong>Email:</strong> <a href="mailto:diwashacharya30@gmail.com" class="text-blue-500 hover:underline">diwashacharya30@gmail.com</a></p>
-        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/diwash-sharma-a-952994220/" class="text-blue-500 hover:underline">Profile</a></p>
-        <p><strong>GitHub:</strong> <a href="https://github.com/Diwashach30" class="text-blue-500 hover:underline">Profile</a></p>
-      </section>
-    </main>
+  // Upload & persist passport photo
+  const input = document.getElementById("photoInput");
+  const heroImage = document.getElementById("heroImage");
 
-    <a href="#contact" class="fixed bottom-4 right-4 bg-accent p-4 rounded-full text-white shadow-lg md:hidden">📞</a>
+  const savedImage = localStorage.getItem("passportPhoto");
+  if (savedImage) heroImage.src = savedImage;
 
-    <footer class="text-center py-6 bg-gray-900 text-white mt-12">
-      &copy; 2025 Diwash Sharma Acharya. All rights reserved.
-    </footer>
+  input.addEventListener("change", () => {
+    const file = input.files[0];
+    if (!file) return;
 
-    <script>
-      const photoUpload = document.getElementById('photoUpload');
-      const photoPreview = document.getElementById('photoPreview');
+    const reader = new FileReader();
+    reader.onload = e => {
+      heroImage.src = e.target.result;
+      localStorage.setItem("passportPhoto", e.target.result);
+    };
+    reader.readAsDataURL(file);
+  });
+</script>
 
-      photoUpload?.addEventListener('change', function () {
-        photoPreview.innerHTML = '';
-        Array.from(photoUpload.files).forEach(file => {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            img.className = 'rounded shadow max-h-40 object-cover';
-            photoPreview.appendChild(img);
-          };
-          reader.readAsDataURL(file);
-        });
-      });
-    </script>
-  </body>
+</body>
 </html>
