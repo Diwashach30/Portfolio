@@ -33,35 +33,38 @@
   <body class="bg-lightbg dark:bg-darkbg text-gray-900 dark:text-white font-[Inter]">
 
     <!-- HERO -->
-    <section id="hero" class="relative py-20">
-      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10 px-6">
-        
+    <section id="hero" class="relative py-16 md:py-20">
+      <div class="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center gap-10 px-6 text-center md:text-left">
+
+        <!-- TEXT -->
         <div class="flex-1">
-          <h1 class="text-4xl md:text-6xl font-bold text-accent mb-4">
+          <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold text-accent mb-4 leading-tight">
             Hi, I’m Diwash Sharma Acharya
           </h1>
-          <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">
-            Mobile App & Python Developer passionate about AI and Data Science and creating
-            user-friendly experiences.
+
+          <p class="text-base sm:text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+            Mobile App & Python Developer passionate about AI, Data Science,
+            and building user-friendly digital experiences.
           </p>
+
           <a
             href="#contact"
-            class="bg-accent text-white px-6 py-3 rounded-lg shadow hover:bg-accentLight transition"
+            class="inline-block bg-accent text-white px-6 py-3 rounded-lg shadow hover:bg-accentLight transition"
           >
             Let's Talk
           </a>
         </div>
 
-        <!-- PROFILE IMAGE (FIXED HERE) -->
-        <div class="flex-1 relative">
+        <!-- IMAGE -->
+        <div class="flex-1 relative flex justify-center">
           <div
-            class="absolute -left-6 -top-6 w-40 h-40 bg-accentLight rounded-full mix-blend-multiply blur-xl animate-pulse"
+            class="absolute -left-4 -top-4 w-32 h-32 md:w-40 md:h-40 bg-accentLight rounded-full mix-blend-multiply blur-xl animate-pulse"
           ></div>
 
           <img
             src="https://i.postimg.cc/bN6DmcSk/IMG-9388.jpg"
             alt="Diwash Acharya"
-            class="rounded-full border-4 border-white relative z-10 w-56 h-56 object-cover mx-auto"
+            class="rounded-full border-4 border-white relative z-10 w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 object-cover"
           />
         </div>
 
@@ -69,83 +72,95 @@
     </section>
 
     <!-- NAV -->
-    <nav class="bg-primary text-white flex justify-center gap-6 py-4 sticky top-0 z-50">
+    <nav class="bg-primary text-white flex flex-wrap justify-center gap-4 py-3 sticky top-0 z-50 text-sm sm:text-base">
       <a href="#about" class="hover:underline">About</a>
       <a href="#skills" class="hover:underline">Skills</a>
       <a href="#projects" class="hover:underline">Projects</a>
       <a href="#experience" class="hover:underline">Experience</a>
-      <a href="#misc" class="hover:underline">Misc</a>
       <a href="#contact" class="hover:underline">Contact</a>
     </nav>
 
     <!-- MAIN -->
-    <main class="max-w-5xl mx-auto px-6 py-12 space-y-20">
+    <main class="max-w-5xl mx-auto px-6 py-12 space-y-16">
 
+      <!-- ABOUT -->
       <section id="about">
-        <h2 class="text-3xl font-semibold text-accent mb-4">About Me</h2>
-        <p>
-          I am a dedicated and proactive student striving for academic excellence and personal
-          growth, aiming to graduate with top honors and be recognized as one of the institution's
-          most outstanding students.
+        <h2 class="text-2xl sm:text-3xl font-semibold text-accent mb-4">About Me</h2>
+        <p class="leading-relaxed text-sm sm:text-base">
+          I am a dedicated and proactive student striving for academic excellence,
+          leadership, and innovation while contributing meaningfully to the tech community.
         </p>
       </section>
 
+      <!-- SKILLS -->
       <section id="skills">
-        <h2 class="text-3xl font-semibold text-accent mb-4">Skills</h2>
-        <ul class="grid grid-cols-2 md:grid-cols-3 gap-4 list-disc list-inside">
+        <h2 class="text-2xl sm:text-3xl font-semibold text-accent mb-4">Skills</h2>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 list-disc list-inside text-sm sm:text-base">
           <li>Python, R, Dart, SQL, Java</li>
-          <li>Fast API, REST API</li>
-          <li>Django, JavaScript</li>
+          <li>Django, FastAPI, REST API</li>
+          <li>JavaScript</li>
           <li>MySQL, Firebase</li>
           <li>Git, GitHub</li>
-          <li>NumPy, Pandas, Tkinter</li>
+          <li>NumPy, Pandas</li>
         </ul>
       </section>
 
+      <!-- PROJECTS -->
       <section id="projects">
-        <h2 class="text-3xl font-semibold text-accent mb-4">Projects</h2>
+        <h2 class="text-2xl sm:text-3xl font-semibold text-accent mb-6">Projects</h2>
 
-        <h3 class="text-2xl font-semibold text-accentLight mt-6 mb-2">Basic Projects</h3>
-        <ul class="space-y-2 list-disc list-inside">
+        <!-- BASIC -->
+        <h3 class="text-xl font-semibold text-accentLight mb-2">Basic Projects</h3>
+        <ul class="space-y-2 list-disc list-inside text-sm sm:text-base mb-6">
+          <li>Password Generator</li>
+          <li>Pomodoro Timer</li>
+          <li>Weather App</li>
+        </ul>
+
+        <!-- ADVANCED (NEW) -->
+        <h3 class="text-xl font-semibold text-accentLight mb-2">Advanced Projects</h3>
+        <ul class="space-y-3 list-disc list-inside text-sm sm:text-base">
           <li>
-            <a href="https://github.com/Diwashach30/PythonProjects/blob/main/password_generator.py"
-               class="text-blue-500 hover:underline">
-              Password Generator
-            </a>
+            <strong>Save Supermarket</strong> – Retail billing and inventory management system
+            with real-time stock tracking.
           </li>
           <li>
-            <a href="https://github.com/Diwashach30/PythonProjects/blob/main/pomodoro.py"
-               class="text-blue-500 hover:underline">
-              Pomodoro Timer
-            </a>
+            <strong>CHAI GPT</strong> – AI-powered tea shop assistant using Python and API logic.
           </li>
           <li>
-            <a href="https://github.com/Diwashach30/PythonProjects/blob/main/weather_app.py"
-               class="text-blue-500 hover:underline">
-              Weather App
-            </a>
+            <strong>Movie Recommendation System</strong> – Data-driven recommendation engine
+            using machine learning concepts.
+          </li>
+          <li>
+            <strong>Stock Price Visualization</strong> – Interactive financial data analysis tool.
           </li>
         </ul>
       </section>
 
+      <!-- EXPERIENCE -->
       <section id="experience">
-        <h2 class="text-3xl font-semibold text-accent mb-4">Experience</h2>
-        <ul class="space-y-2">
-          <li>Intern – Flutter Developer, Pastel Software Solutions</li>
-          <li>Mobile App Developer, Sarbatra Inc</li>
+        <h2 class="text-2xl sm:text-3xl font-semibold text-accent mb-4">Experience</h2>
+        <ul class="space-y-2 text-sm sm:text-base">
+          <li>
+            Intern – Flutter Developer, Pastel Software Solutions (2022–2023)
+          </li>
+          <li>
+            Mobile App Developer, Sarbatra Inc (2023–Present)
+          </li>
         </ul>
       </section>
 
+      <!-- CONTACT -->
       <section id="contact">
-        <h2 class="text-3xl font-semibold text-accent mb-4">Contact</h2>
-        <p><strong>Phone:</strong> +61 434 398 644</p>
-        <p>
+        <h2 class="text-2xl sm:text-3xl font-semibold text-accent mb-4">Contact</h2>
+        <p class="text-sm sm:text-base"><strong>Phone:</strong> +61 434 398 644</p>
+        <p class="text-sm sm:text-base">
           <strong>Email:</strong>
           <a href="mailto:diwashacharya30@gmail.com" class="text-blue-500 hover:underline">
             diwashacharya30@gmail.com
           </a>
         </p>
-        <p>
+        <p class="text-sm sm:text-base">
           <strong>GitHub:</strong>
           <a href="https://github.com/Diwashach30" class="text-blue-500 hover:underline">
             Diwashach30
@@ -155,7 +170,7 @@
 
     </main>
 
-    <footer class="text-center py-6 bg-gray-900 text-white mt-12">
+    <footer class="text-center py-6 bg-gray-900 text-white mt-12 text-sm">
       &copy; 2025 Diwash Sharma Acharya. All rights reserved.
     </footer>
 
