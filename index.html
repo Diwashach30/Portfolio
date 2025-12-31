@@ -2,23 +2,29 @@
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
-  <title>Diwash Acharya | Motion Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diwash Acharya | Gaming UX Portfolio</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            game: ['Orbitron'],
+            body: ['Inter']
+          },
           colors: {
-            luxury: '#0B0E14',
-            accent: '#D4AF37',
-            glow: '#FFD369'
+            bg: '#0a0a0f',
+            panel: '#111827',
+            neon: '#22d3ee',
+            neonPurple: '#8b5cf6'
           }
         }
       }
@@ -26,165 +32,200 @@
   </script>
 
   <style>
-    /* Premium motion */
-    * {
-      scroll-behavior: smooth;
+    * { scroll-behavior: smooth; }
+
+    .panel {
+      background: linear-gradient(180deg, #111827, #020617);
+      border: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(10px);
     }
 
-    .cinematic {
-      background: radial-gradient(circle at top, #1a1f2b, #0b0e14);
+    .neon-glow {
+      box-shadow: 0 0 25px rgba(34,211,238,.4);
     }
 
-    .glow {
-      box-shadow: 0 0 60px rgba(212, 175, 55, 0.25);
+    /* LOADER */
+    .scanline {
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(34,211,238,0.2),
+        transparent
+      );
+      animation: scan 2s linear infinite;
     }
 
-    .smooth {
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    video {
-      will-change: transform;
+    @keyframes scan {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
     }
   </style>
 </head>
 
-<body class="bg-luxury text-white font-[Inter] cinematic">
+<body class="bg-bg text-gray-200 font-body">
 
-<!-- NAV -->
-<nav class="fixed top-0 w-full z-50 backdrop-blur bg-black/40 border-b border-white/10">
+<!-- ================= LOADING SCREEN ================= -->
+<div id="loader" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black text-neon font-game">
+  <div class="text-center space-y-6">
+    <h1 class="text-3xl tracking-widest animate-pulse">
+      INITIALIZING SYSTEM
+    </h1>
+
+    <div class="w-64 h-2 bg-white/10 rounded overflow-hidden">
+      <div id="progressBar" class="h-full bg-neon w-0"></div>
+    </div>
+
+    <p class="text-xs text-gray-400 tracking-widest">
+      LOADING ASSETS...
+    </p>
+  </div>
+
+  <div class="absolute inset-0 pointer-events-none scanline"></div>
+</div>
+
+<!-- ================= NAV ================= -->
+<nav class="fixed top-0 w-full z-40 bg-black/70 backdrop-blur border-b border-white/10">
   <div class="max-w-6xl mx-auto flex justify-between px-6 py-4">
-    <span class="font-bold tracking-wide">DIWASH</span>
-    <div class="space-x-6 text-sm">
-      <a href="#work" class="hover:text-accent smooth">Work</a>
-      <a href="#about" class="hover:text-accent smooth">About</a>
-      <a href="#upload" class="hover:text-accent smooth">Upload Photo</a>
-      <a href="#contact" class="hover:text-accent smooth">Contact</a>
+    <span class="font-game text-neon tracking-widest">DIWASH.exe</span>
+    <div class="space-x-6 text-sm font-game">
+      <a href="#about" class="hover:text-neon">ABOUT</a>
+      <a href="#skills" class="hover:text-neon">SKILLS</a>
+      <a href="#projects" class="hover:text-neon">QUESTS</a>
+      <a href="#upload" class="hover:text-neon">AVATAR</a>
+      <a href="#contact" class="hover:text-neon">CONTACT</a>
     </div>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="min-h-screen flex items-center justify-center px-6 pt-32">
-  <div class="grid md:grid-cols-2 gap-16 max-w-6xl w-full">
+<!-- ================= HERO ================= -->
+<section class="pt-32 pb-24">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 px-6 items-center">
+
     <div>
-      <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-        Motion-Driven <br>
-        <span class="text-accent">Digital Craft</span>
+      <h1 class="font-game text-5xl md:text-6xl text-neon mb-6">
+        PLAYER:<br>
+        <span class="text-white">DIWASH</span>
       </h1>
-      <p class="text-gray-300 max-w-lg">
-        High-end motion, cinematic lighting, and premium interaction design inspired by automotive advertising.
+      <p class="text-gray-400 mb-6 max-w-lg">
+        Mobile App & Python Developer with passion for AI, Data Science,
+        and game-inspired UX systems.
       </p>
+      <a href="#contact"
+         class="inline-block px-6 py-3 bg-neon text-black font-game rounded neon-glow hover:scale-105 transition">
+        START MISSION
+      </a>
     </div>
 
     <div class="relative flex justify-center">
-      <div class="absolute w-72 h-72 rounded-full bg-accent/20 blur-3xl"></div>
+      <div class="absolute w-72 h-72 bg-neonPurple/30 blur-3xl rounded-full"></div>
       <img id="heroImage"
            src="https://via.placeholder.com/300"
-           class="relative z-10 w-60 h-60 rounded-full object-cover border border-white/20 glow smooth">
+           class="relative z-10 w-56 h-56 rounded-full object-cover border-2 border-neon neon-glow">
     </div>
   </div>
 </section>
 
-<!-- WORK -->
-<section id="work" class="max-w-6xl mx-auto px-6 py-24">
-  <h2 class="text-3xl font-bold mb-12 text-accent">Featured Motion Work</h2>
+<!-- ================= UPLOAD AVATAR ================= -->
+<section id="upload" class="max-w-xl mx-auto px-6 py-16">
+  <div class="panel p-8 rounded-xl">
+    <h2 class="font-game text-xl text-neon mb-4">UPLOAD PLAYER AVATAR</h2>
 
-  <div class="grid md:grid-cols-3 gap-10">
-    <!-- Reel Card -->
-    <div class="group relative overflow-hidden rounded-xl border border-white/10">
-      <video class="w-full h-full object-cover scale-105 group-hover:scale-110 smooth"
-             muted loop preload="metadata">
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-      </video>
-      <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 smooth flex items-end p-6">
-        <span class="text-sm text-accent">Concept Car Motion Reel</span>
-      </div>
-    </div>
-
-    <div class="group relative overflow-hidden rounded-xl border border-white/10">
-      <video class="w-full h-full object-cover scale-105 group-hover:scale-110 smooth"
-             muted loop preload="metadata">
-        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
-      </video>
-      <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 smooth flex items-end p-6">
-        <span class="text-sm text-accent">Luxury UI Motion</span>
-      </div>
-    </div>
-
-    <div class="group relative overflow-hidden rounded-xl border border-white/10">
-      <video class="w-full h-full object-cover scale-105 group-hover:scale-110 smooth"
-             muted loop preload="metadata">
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-      </video>
-      <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 smooth flex items-end p-6">
-        <span class="text-sm text-accent">Brand Ident Animation</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- UPLOAD PAGE -->
-<section id="upload" class="max-w-xl mx-auto px-6 py-24">
-  <h2 class="text-3xl font-bold mb-6 text-accent">Upload Passport Photo</h2>
-
-  <div class="border border-white/10 rounded-xl p-8 bg-white/5 backdrop-blur">
     <input type="file"
+           id="photoUpload"
            accept="image/*"
-           id="photoInput"
-           class="block w-full text-sm text-gray-300
-           file:mr-4 file:py-2 file:px-4
-           file:rounded file:border-0
-           file:bg-accent file:text-black
-           hover:file:bg-glow smooth">
+           class="block w-full text-sm
+           file:mr-4 file:px-4 file:py-2
+           file:bg-neon file:text-black
+           file:border-0 file:rounded">
 
-    <p class="text-xs text-gray-400 mt-4">
-      Image updates instantly in hero section. Stored locally in your browser.
+    <p class="text-xs text-gray-500 mt-3">
+      Passport-size image (stored locally).
     </p>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about" class="max-w-4xl mx-auto px-6 py-24">
-  <h2 class="text-3xl font-bold mb-6 text-accent">About</h2>
+<!-- ================= MAIN ================= -->
+<main class="max-w-5xl mx-auto px-6 space-y-20">
+
+<section id="about" class="panel p-8 rounded-xl">
+  <h2 class="font-game text-neon mb-4">PLAYER PROFILE</h2>
   <p class="text-gray-300">
-    I blend software engineering with motion design thinking—creating immersive,
-    fluid digital experiences inspired by cinematic storytelling and premium brands.
+    Dedicated student striving for academic excellence, leadership,
+    innovation, and meaningful contributions to technology.
   </p>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="text-center py-24">
-  <p class="text-gray-400">Let’s build something cinematic.</p>
-  <p class="mt-4 text-accent">diwashacharya30@gmail.com</p>
+<section id="skills" class="panel p-8 rounded-xl">
+  <h2 class="font-game text-neon mb-6">ABILITIES</h2>
+  <ul class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+    <li>⚔ Python, R, Dart</li>
+    <li>🧠 AI / Data Science</li>
+    <li>🌐 Django, FastAPI</li>
+    <li>🛢 SQL, Firebase</li>
+    <li>🧩 Git, GitHub</li>
+    <li>📊 NumPy, Pandas</li>
+  </ul>
 </section>
 
-<footer class="py-6 text-center text-xs text-gray-500 border-t border-white/10">
-  © 2025 Diwash Acharya
+<section id="projects" class="panel p-8 rounded-xl">
+  <h2 class="font-game text-neon mb-6">QUEST LOG</h2>
+  <ul class="space-y-3 text-sm">
+    <li>🎯 Save Supermarket App</li>
+    <li>🎯 CHAI GPT System</li>
+    <li>🎯 Movie Recommendation AI</li>
+  </ul>
+</section>
+
+<section id="contact" class="panel p-8 rounded-xl text-center">
+  <h2 class="font-game text-neon mb-4">CONNECT</h2>
+  <p>Email: <span class="text-neon">diwashacharya30@gmail.com</span></p>
+  <p class="mt-2">GitHub: <span class="text-neon">Diwashach30</span></p>
+</section>
+
+</main>
+
+<footer class="text-center text-xs text-gray-500 py-8">
+  © 2025 DIWASH.exe — ALL RIGHTS RESERVED
 </footer>
 
+<!-- ================= SCRIPTS ================= -->
 <script>
-  // Hover play videos
-  document.querySelectorAll("video").forEach(video => {
-    video.addEventListener("mouseenter", () => video.play());
-    video.addEventListener("mouseleave", () => video.pause());
-  });
+  /* LOADING SCREEN */
+  const loader = document.getElementById('loader');
+  const bar = document.getElementById('progressBar');
+  let progress = 0;
+  document.body.style.overflow = 'hidden';
 
-  // Upload & persist passport photo
-  const input = document.getElementById("photoInput");
-  const heroImage = document.getElementById("heroImage");
+  const loading = setInterval(() => {
+    progress += Math.random() * 20;
+    bar.style.width = Math.min(progress, 100) + '%';
 
-  const savedImage = localStorage.getItem("passportPhoto");
-  if (savedImage) heroImage.src = savedImage;
+    if (progress >= 100) {
+      clearInterval(loading);
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+          loader.remove();
+          document.body.style.overflow = 'auto';
+        }, 600);
+      }, 400);
+    }
+  }, 300);
 
-  input.addEventListener("change", () => {
-    const file = input.files[0];
+  /* AVATAR UPLOAD */
+  const upload = document.getElementById('photoUpload');
+  const hero = document.getElementById('heroImage');
+  const saved = localStorage.getItem('avatar');
+
+  if (saved) hero.src = saved;
+
+  upload.addEventListener('change', () => {
+    const file = upload.files[0];
     if (!file) return;
-
     const reader = new FileReader();
     reader.onload = e => {
-      heroImage.src = e.target.result;
-      localStorage.setItem("passportPhoto", e.target.result);
+      hero.src = e.target.result;
+      localStorage.setItem('avatar', e.target.result);
     };
     reader.readAsDataURL(file);
   });
