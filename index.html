@@ -286,6 +286,29 @@ section{ scroll-margin-top:var(--nav-h); }
   transition:transform .6s ease;
 }
 .grid-item:hover img{ transform:scale(1.06); }
+.grid-item .ig-frame{
+  width:100%; height:100%; border:0; display:block;
+  background:#000; pointer-events:none;
+}
+.grid-item .ig-link{
+  position:absolute; inset:0; z-index:3;
+  display:block; text-decoration:none;
+}
+.grid-item .ig-open{
+  position:absolute; right:12px; top:12px; z-index:4;
+  padding:7px 10px; border:1px solid rgba(255,255,255,.35);
+  border-radius:999px; background:rgba(0,0,0,.55); color:#fff;
+  font-size:.72rem; backdrop-filter:blur(4px);
+}
+.lightbox .ig-lightbox-frame{
+  width:min(560px, 88vw); height:min(760px, 82vh);
+  border:0; background:#000; display:block;
+}
+.lightbox .ig-open-link{
+  display:block; text-align:center; margin-top:10px; color:var(--text-dim);
+  font-size:.85rem; text-decoration:none;
+}
+.lightbox .ig-open-link:hover{ color:var(--accent); }
 .grid-item .cap{
   position:absolute; left:0; right:0; bottom:0;
   padding:18px 20px;
@@ -687,32 +710,31 @@ section{ scroll-margin-top:var(--nav-h); }
    URLs for your own work — everything else (filtering, lightbox,
    captions) is driven off this array.
 ============================================================ */
+const INSTAGRAM_LINK = 'https://www.instagram.com/p/DcYZLiiFEro/?img_index=1';
+const INSTAGRAM_EMBED = 'https://www.instagram.com/p/DcYZLiiFEro/embed/';
+
 const PHOTOS = [
-  // 
-  { cat:'portraits', title:'Editorial Portrait, Golden Light', thumb:'https://www.instagram.com/p/DcYZLiiFEro/?img_index=1?w=800&q=75&auto=format&fit=crop', full:'https://www.instagram.com/p/DcYZLiiFEro/?img_index=1?w=1600&q=85&auto=format&fit=crop' },
-  { cat:'portraits', title:'Studio Portrait Series', thumb:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=1600&q=85&auto=format&fit=crop' },
-  { cat:'portraits', title:'Environmental Portrait', thumb:'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=1600&q=85&auto=format&fit=crop' },
-  { cat:'portraits', title:'Natural Light Close-Up', thumb:'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1600&q=85&auto=format&fit=crop' },
-  // Landscapes
-  { cat:'landscapes', title:'Ridge Line at Dawn', thumb:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=85&auto=format&fit=crop' },
-  { cat:'landscapes', title:'Forest Light', thumb:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&q=85&auto=format&fit=crop' },
-  { cat:'landscapes', title:'Alpine Range', thumb:'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1600&q=85&auto=format&fit=crop' },
-  { cat:'landscapes', title:'Valley Green', thumb:'https://images.unsplash.com/photo-1500534623283-312aade485b7?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1500534623283-312aade485b7?w=1600&q=85&auto=format&fit=crop' },
-  // Events
-  { cat:'events', title:'Wedding Day', thumb:'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1600&q=85&auto=format&fit=crop' },
-  { cat:'events', title:'First Dance', thumb:'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1600&q=85&auto=format&fit=crop' },
-  { cat:'events', title:'Celebration Night', thumb:'https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1511578314322-379afb476865?w=1600&q=85&auto=format&fit=crop' },
-  { cat:'events', title:'Reception Details', thumb:'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=1600&q=85&auto=format&fit=crop' },
-  // Sport — Southern Knights CC
-  { cat:'sport', title:'Match Day, Southern Knights CC', thumb:'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1600&q=85&auto=format&fit=crop' },
-  { cat:'sport', title:'Pre-Season Training', thumb:'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1600&q=85&auto=format&fit=crop' },
-  { cat:'sport', title:'Fitness Session', thumb:'https://images.unsplash.com/photo-1517649763962-0c623066013b?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1600&q=85&auto=format&fit=crop' },
-  { cat:'sport', title:'Southern Knights CC, Home Ground', thumb:'https://images.unsplash.com/photo-1552667466-07770ae110d0?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1552667466-07770ae110d0?w=1600&q=85&auto=format&fit=crop' },
-  // Commercial
-  { cat:'commercial', title:'Product Study — Timepiece', thumb:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1600&q=85&auto=format&fit=crop' },
-  { cat:'commercial', title:'Product Study — Footwear', thumb:'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=1600&q=85&auto=format&fit=crop' },
-  { cat:'commercial', title:'Still Life', thumb:'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=1600&q=85&auto=format&fit=crop' },
-  { cat:'commercial', title:'Product Study — Café Brand', thumb:'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=1600&q=85&auto=format&fit=crop' },
+  // Every gallery item uses the Instagram post supplied by the site owner.
+  { cat:'portraits', title:'Editorial Portrait, Golden Light', link:INSTAGRAM_LINK },
+  { cat:'portraits', title:'Studio Portrait Series', link:INSTAGRAM_LINK },
+  { cat:'portraits', title:'Environmental Portrait', link:INSTAGRAM_LINK },
+  { cat:'portraits', title:'Natural Light Close-Up', link:INSTAGRAM_LINK },
+  { cat:'landscapes', title:'Ridge Line at Dawn', link:INSTAGRAM_LINK },
+  { cat:'landscapes', title:'Forest Light', link:INSTAGRAM_LINK },
+  { cat:'landscapes', title:'Alpine Range', link:INSTAGRAM_LINK },
+  { cat:'landscapes', title:'Valley Green', link:INSTAGRAM_LINK },
+  { cat:'events', title:'Wedding Day', link:INSTAGRAM_LINK },
+  { cat:'events', title:'First Dance', link:INSTAGRAM_LINK },
+  { cat:'events', title:'Celebration Night', link:INSTAGRAM_LINK },
+  { cat:'events', title:'Reception Details', link:INSTAGRAM_LINK },
+  { cat:'sport', title:'Match Day, Southern Knights CC', link:INSTAGRAM_LINK },
+  { cat:'sport', title:'Pre-Season Training', link:INSTAGRAM_LINK },
+  { cat:'sport', title:'Fitness Session', link:INSTAGRAM_LINK },
+  { cat:'sport', title:'Southern Knights CC, Home Ground', link:INSTAGRAM_LINK },
+  { cat:'commercial', title:'Product Study — Timepiece', link:INSTAGRAM_LINK },
+  { cat:'commercial', title:'Product Study — Footwear', link:INSTAGRAM_LINK },
+  { cat:'commercial', title:'Still Life', link:INSTAGRAM_LINK },
+  { cat:'commercial', title:'Product Study — Café Brand', link:INSTAGRAM_LINK },
 ];
 
 const CAT_LABEL = {
@@ -730,13 +752,18 @@ PHOTOS.forEach((p, i) => {
   item.dataset.cat = p.cat;
   item.dataset.index = i;
   item.innerHTML = `
-    <img src="${p.thumb}" alt="${p.title}" loading="lazy"
-         onerror="this.closest('.grid-item').style.background='linear-gradient(135deg,#201D19,#14120F)'; this.style.display='none';">
+    <iframe class="ig-frame" src="${INSTAGRAM_EMBED}" title="${p.title}" loading="lazy"
+            allow="encrypted-media; picture-in-picture" scrolling="no"></iframe>
+    <a class="ig-link" href="${p.link}" target="_blank" rel="noopener noreferrer" aria-label="Open ${p.title} on Instagram"></a>
+    <span class="ig-open">Open Instagram ↗</span>
     <div class="cap">
       <div class="cap-title">${p.title}</div>
       <div class="cap-cat">${CAT_LABEL[p.cat]}</div>
     </div>`;
-  item.addEventListener('click', () => openLightbox(i));
+  item.addEventListener('click', (e) => {
+    if (e.target.closest('.ig-link')) return;
+    openLightbox(i);
+  });
   grid.appendChild(item);
 });
 
@@ -787,8 +814,27 @@ function closeLightbox(){
 }
 function renderLightbox(){
   const p = PHOTOS[currentIndex];
-  lbImg.src = p.full;
-  lbImg.alt = p.title;
+  const figure = lightbox.querySelector('figure');
+  lbImg.style.display = 'none';
+  let frame = figure.querySelector('.ig-lightbox-frame');
+  let link = figure.querySelector('.ig-open-link');
+  if (!frame) {
+    frame = document.createElement('iframe');
+    frame.className = 'ig-lightbox-frame';
+    frame.allow = 'encrypted-media; picture-in-picture';
+    frame.scrolling = 'no';
+    figure.insertBefore(frame, lbCaption);
+  }
+  if (!link) {
+    link = document.createElement('a');
+    link.className = 'ig-open-link';
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    figure.appendChild(link);
+  }
+  frame.src = INSTAGRAM_EMBED;
+  link.href = p.link;
+  link.textContent = 'Open this post on Instagram ↗';
   lbCaption.textContent = `${p.title} — ${CAT_LABEL[p.cat]}`;
 }
 function step(dir){
