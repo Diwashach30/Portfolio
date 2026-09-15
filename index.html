@@ -1,178 +1,881 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Diwash Acharya | Portfolio</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nirazan Pandey — Photographer</title>
+<meta name="description" content="Photography portfolio of Nirazan Pandey — portraits, landscapes, events, commercial work, and team photography for Southern Knights CC.">
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
+<!-- ============================================================
+     FONTS
+     Fraunces (serif, display/headlines) + Work Sans (sans, body).
+     A soft-optical serif paired with a clean grotesque keeps the
+     "gallery" feel without leaning on the usual Playfair/Inter combo.
+============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   A warm, near-black darkroom palette rather than pure #000 —
+   with a single brass accent (evokes old camera hardware) and a
+   muted willow green used sparingly for the Sport/CC thread.
+============================================================ */
+:root{
+  --bg:            #14120F;   /* warm charcoal, base background */
+  --bg-panel:      #1B1815;   /* slightly raised panel surface */
+  --bg-panel-2:    #201D19;
+  --line:          #33302A;   /* hairline borders */
+  --text:          #ECE7DC;   /* warm ivory */
+  --text-dim:      #A9A093;   /* muted secondary text */
+  --text-faint:    #726B5F;
+  --accent:        #B98A4E;   /* brass */
+  --accent-dim:    #8C6A3D;
+  --willow:        #7A8768;   /* muted willow green — cricket thread */
 
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              primary: '#6366f1',
-              accent: '#D7720C',
-              accentLight: '#E6A54D',
-              darkbg: '#0f172a',
-              lightbg: '#f8fafc'
-            }
-          }
-        }
-      }
-    </script>
-  </head>
+  --serif: 'Fraunces', Georgia, serif;
+  --sans:  'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  <body class="bg-lightbg dark:bg-darkbg text-gray-900 dark:text-white font-[Inter]">
+  --maxw: 1240px;
+  --nav-h: 76px;
+}
 
-    <!-- HERO -->
-    <section id="hero" class="relative py-16 md:py-20">
-      <div class="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center gap-10 px-6 text-center md:text-left">
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  font-weight:400;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{
+  font-family:var(--serif);
+  font-weight:600;
+  margin:0;
+  line-height:1.08;
+  letter-spacing:-0.01em;
+}
+p{ margin:0; }
+a{ color:inherit; text-decoration:none; }
+img{ max-width:100%; display:block; }
+button{ font-family:inherit; cursor:pointer; }
 
-        <!-- TEXT -->
-        <div class="flex-1">
-          <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold text-accent mb-4 leading-tight">
-            Hi, I’m Diwash Sharma Acharya
-          </h1>
+.wrap{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:0 40px;
+}
+@media(max-width:640px){ .wrap{ padding:0 24px; } }
 
-          <p class="text-base sm:text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-            Mobile App & Python Developer passionate about AI, Data Science,
-            and building user-friendly digital experiences.
-          </p>
+section{ scroll-margin-top:var(--nav-h); }
 
-          <a
-            href="#contact"
-            class="inline-block bg-accent text-white px-6 py-3 rounded-lg shadow hover:bg-accentLight transition"
-          >
-            Let's Talk
-          </a>
-        </div>
+/* Focus visibility — accessibility floor */
+:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+}
 
-        <!-- IMAGE -->
-        <div class="flex-1 relative flex justify-center">
-          <div
-            class="absolute -left-4 -top-4 w-32 h-32 md:w-40 md:h-40 bg-accentLight rounded-full mix-blend-multiply blur-xl animate-pulse"
-          ></div>
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+  html{ scroll-behavior:auto; }
+}
 
-          <img
-            src="https://i.postimg.cc/bN6DmcSk/IMG-9388.jpg"
-            alt="Diwash Acharya"
-            class="rounded-full border-4 border-white relative z-10 w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 object-cover"
-          />
-        </div>
+/* ============================================================
+   NAVIGATION
+   Transparent over the hero; gains a solid, blurred backing once
+   the page scrolls (toggled via JS: .nav.scrolled).
+============================================================ */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  height:var(--nav-h);
+  display:flex; align-items:center;
+  background:transparent;
+  transition:background .35s ease, border-color .35s ease;
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{
+  background:rgba(20,18,15,0.86);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav .wrap{
+  display:flex; align-items:center; justify-content:space-between;
+  width:100%;
+}
+.nav-logo{
+  font-family:var(--serif);
+  font-size:1.15rem;
+  font-weight:600;
+  letter-spacing:0.01em;
+}
+.nav-logo span{ color:var(--text-dim); font-family:var(--sans); font-weight:400; font-size:0.85rem; }
 
+.nav-links{
+  display:flex; gap:36px; list-style:none; margin:0; padding:0;
+}
+.nav-links a{
+  font-size:0.94rem; color:var(--text-dim);
+  position:relative; padding-bottom:4px;
+  transition:color .2s ease;
+}
+.nav-links a:hover{ color:var(--text); }
+.nav-links a::after{
+  content:''; position:absolute; left:0; right:100%; bottom:0; height:1px;
+  background:var(--accent); transition:right .25s ease;
+}
+.nav-links a:hover::after{ right:0; }
+
+.nav-toggle{
+  display:none;
+  background:none; border:none; width:32px; height:24px;
+  position:relative; z-index:110;
+}
+.nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{
+  content:''; display:block; position:absolute; left:0; right:0; height:1px;
+  background:var(--text); transition:transform .25s ease, opacity .25s ease;
+}
+.nav-toggle span{ top:11px; }
+.nav-toggle span::before{ top:-8px; }
+.nav-toggle span::after{ top:8px; }
+.nav-toggle.open span{ background:transparent; }
+.nav-toggle.open span::before{ transform:translateY(8px) rotate(45deg); }
+.nav-toggle.open span::after{ transform:translateY(-8px) rotate(-45deg); }
+
+@media(max-width:860px){
+  .nav-links{
+    position:fixed; inset:0 0 0 auto; top:var(--nav-h);
+    flex-direction:column; gap:0; width:78%; max-width:340px;
+    background:var(--bg-panel);
+    border-left:1px solid var(--line);
+    height:calc(100vh - var(--nav-h));
+    padding:32px 0;
+    transform:translateX(100%);
+    transition:transform .35s ease;
+  }
+  .nav-links.open{ transform:translateX(0); }
+  .nav-links a{
+    padding:16px 40px; display:block; font-size:1.05rem;
+    border-bottom:1px solid var(--line);
+  }
+  .nav-toggle{ display:block; }
+}
+
+/* ============================================================
+   HERO
+   Full-viewport background photo, gradient scrim for legibility,
+   content anchored bottom-left (deliberately off-center).
+============================================================ */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex; align-items:flex-end;
+  background:
+    linear-gradient(180deg, rgba(20,18,15,0.35) 0%, rgba(20,18,15,0.15) 35%, rgba(20,18,15,0.9) 100%),
+    url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=1800&q=80&auto=format&fit=crop')
+    center/cover no-repeat;
+}
+.hero-inner{
+  width:100%;
+  padding:0 40px 100px;
+  max-width:var(--maxw);
+  margin:0 auto;
+}
+.hero-kicker{
+  font-size:0.98rem; color:var(--text-dim);
+  margin-bottom:18px;
+  opacity:0; animation:rise .8s ease .15s forwards;
+}
+.hero h1{
+  font-size:clamp(2.6rem, 7vw, 5.4rem);
+  max-width:14ch;
+  color:var(--text);
+  opacity:0; animation:rise .9s ease .3s forwards;
+}
+.hero-sub{
+  margin-top:22px;
+  font-size:1.05rem;
+  color:var(--text-dim);
+  max-width:46ch;
+  opacity:0; animation:rise .9s ease .48s forwards;
+}
+.hero-cta{
+  margin-top:40px;
+  display:inline-flex; align-items:center; gap:12px;
+  opacity:0; animation:rise .9s ease .64s forwards;
+}
+@keyframes rise{
+  from{ opacity:0; transform:translateY(18px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+@media(max-width:640px){ .hero-inner{ padding:0 24px 64px; } }
+
+.btn{
+  display:inline-block;
+  padding:15px 30px;
+  border:1px solid var(--accent);
+  color:var(--text);
+  font-size:0.95rem;
+  background:transparent;
+  transition:background .25s ease, color .25s ease, border-color .25s ease;
+}
+.btn:hover{ background:var(--accent); color:#14120F; }
+.btn-quiet{
+  border-color:var(--line); color:var(--text-dim);
+}
+.btn-quiet:hover{ background:var(--bg-panel); color:var(--text); border-color:var(--text-dim); }
+
+/* ============================================================
+   SECTION HEADINGS (shared)
+============================================================ */
+.section-pad{ padding:120px 0; }
+@media(max-width:640px){ .section-pad{ padding:80px 0; } }
+
+.section-head{
+  display:flex; justify-content:space-between; align-items:flex-end;
+  gap:24px; margin-bottom:56px; flex-wrap:wrap;
+}
+.section-head h2{ font-size:clamp(2rem, 4vw, 2.9rem); }
+.section-head p{ color:var(--text-dim); max-width:42ch; }
+
+/* ============================================================
+   PORTFOLIO / GALLERY
+============================================================ */
+.gallery-section{ background:var(--bg); }
+
+.tabs{
+  display:flex; flex-wrap:wrap; gap:8px 28px;
+  margin-bottom:48px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:0;
+}
+.tab-btn{
+  background:none; border:none;
+  color:var(--text-dim);
+  font-size:0.98rem;
+  padding:10px 2px 16px;
+  position:relative;
+}
+.tab-btn::after{
+  content:''; position:absolute; left:0; right:0; bottom:-1px; height:2px;
+  background:var(--accent); transform:scaleX(0); transform-origin:left;
+  transition:transform .25s ease;
+}
+.tab-btn:hover{ color:var(--text); }
+.tab-btn.active{ color:var(--text); }
+.tab-btn.active::after{ transform:scaleX(1); }
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  gap:6px;
+}
+.grid-item{
+  position:relative;
+  overflow:hidden;
+  aspect-ratio:4/5;
+  background:var(--bg-panel);
+  cursor:pointer;
+}
+.grid-item img{
+  width:100%; height:100%; object-fit:cover;
+  transition:transform .6s ease;
+}
+.grid-item:hover img{ transform:scale(1.06); }
+.grid-item .cap{
+  position:absolute; left:0; right:0; bottom:0;
+  padding:18px 20px;
+  background:linear-gradient(0deg, rgba(0,0,0,0.72), rgba(0,0,0,0));
+  opacity:0; transition:opacity .3s ease;
+}
+.grid-item:hover .cap{ opacity:1; }
+.cap-title{ font-size:0.95rem; color:#fff; }
+.cap-cat{ font-size:0.8rem; color:var(--text-dim); margin-top:2px; }
+.grid-item[data-hidden="true"]{ display:none; }
+
+/* Lightbox */
+.lightbox{
+  position:fixed; inset:0; z-index:200;
+  background:rgba(10,9,7,0.96);
+  display:none; align-items:center; justify-content:center;
+  padding:40px;
+}
+.lightbox.open{ display:flex; }
+.lightbox figure{ margin:0; max-width:min(1100px, 92vw); max-height:88vh; }
+.lightbox img{ max-height:80vh; width:auto; margin:0 auto; }
+.lightbox figcaption{ color:var(--text-dim); text-align:center; margin-top:16px; font-size:0.9rem; }
+.lb-close, .lb-prev, .lb-next{
+  position:fixed; background:none; border:none; color:var(--text);
+  font-size:1.7rem; padding:12px;
+}
+.lb-close{ top:18px; right:24px; }
+.lb-prev{ left:12px; top:50%; transform:translateY(-50%); font-size:2.2rem; }
+.lb-next{ right:12px; top:50%; transform:translateY(-50%); font-size:2.2rem; }
+.lb-close:hover, .lb-prev:hover, .lb-next:hover{ color:var(--accent); }
+
+/* ============================================================
+   ABOUT
+============================================================ */
+.about-section{ background:var(--bg-panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.about-grid{
+  display:grid; grid-template-columns:0.85fr 1.15fr; gap:72px; align-items:center;
+}
+@media(max-width:780px){ .about-grid{ grid-template-columns:1fr; gap:40px; } }
+
+.about-portrait{
+  aspect-ratio:4/5;
+  overflow:hidden;
+  background:var(--bg-panel-2);
+}
+.about-portrait img{ width:100%; height:100%; object-fit:cover; }
+
+.about-copy h2{ font-size:clamp(1.9rem, 3.6vw, 2.6rem); margin-bottom:24px; }
+.about-copy p{ color:var(--text-dim); max-width:56ch; margin-bottom:18px; font-size:1.02rem; }
+.about-copy p strong{ color:var(--text); font-weight:500; }
+
+.specialty-list{
+  list-style:none; margin:32px 0 0; padding:0;
+  display:grid; grid-template-columns:1fr 1fr; gap:12px 20px;
+}
+.specialty-list li{
+  color:var(--text-dim); font-size:0.94rem;
+  padding-left:16px; position:relative;
+}
+.specialty-list li::before{
+  content:''; position:absolute; left:0; top:9px;
+  width:6px; height:1px; background:var(--accent);
+}
+@media(max-width:460px){ .specialty-list{ grid-template-columns:1fr; } }
+
+/* ============================================================
+   SERVICES
+============================================================ */
+.services-section{ background:var(--bg); }
+.service-list{ border-top:1px solid var(--line); }
+.service-row{
+  display:grid; grid-template-columns:1.4fr 2fr auto;
+  gap:32px; align-items:baseline;
+  padding:32px 0; border-bottom:1px solid var(--line);
+}
+.service-row h3{ font-size:1.4rem; font-weight:500; }
+.service-row p{ color:var(--text-dim); font-size:0.96rem; max-width:52ch; }
+.service-price{ color:var(--text); font-size:1.05rem; white-space:nowrap; text-align:right; }
+.service-price small{ display:block; color:var(--text-faint); font-size:0.78rem; margin-top:4px; }
+@media(max-width:760px){
+  .service-row{ grid-template-columns:1fr; gap:8px; }
+  .service-price{ text-align:left; }
+}
+
+.services-note{
+  margin-top:40px;
+  padding:28px 32px;
+  background:var(--bg-panel);
+  border:1px solid var(--line);
+  display:flex; justify-content:space-between; align-items:center;
+  gap:24px; flex-wrap:wrap;
+}
+.services-note p{ color:var(--text-dim); max-width:48ch; font-size:0.96rem; }
+
+/* ============================================================
+   CONTACT
+============================================================ */
+.contact-section{ background:var(--bg-panel); border-top:1px solid var(--line); }
+.contact-grid{
+  display:grid; grid-template-columns:0.8fr 1.2fr; gap:72px;
+}
+@media(max-width:780px){ .contact-grid{ grid-template-columns:1fr; gap:48px; } }
+
+.contact-info h2{ font-size:clamp(1.9rem, 3.6vw, 2.6rem); margin-bottom:18px; }
+.contact-info > p{ color:var(--text-dim); margin-bottom:36px; max-width:40ch; }
+
+.contact-channels{ list-style:none; margin:0; padding:0; }
+.contact-channels li{ border-top:1px solid var(--line); }
+.contact-channels li:last-child{ border-bottom:1px solid var(--line); }
+.contact-channels a{
+  display:flex; align-items:center; gap:16px;
+  padding:18px 4px; color:var(--text);
+  transition:color .2s ease, gap .2s ease;
+}
+.contact-channels a:hover{ color:var(--accent); gap:20px; }
+.contact-channels svg{ flex:none; width:20px; height:20px; stroke:currentColor; }
+.channel-label{ font-size:0.75rem; color:var(--text-faint); display:block; }
+.channel-value{ font-size:1rem; }
+
+/* Form */
+.form-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:24px;
+}
+.field{ display:flex; flex-direction:column; gap:8px; }
+.field.full{ grid-column:1 / -1; }
+.field label{ font-size:0.85rem; color:var(--text-dim); }
+.field input, .field select, .field textarea{
+  background:transparent;
+  border:none;
+  border-bottom:1px solid var(--line);
+  color:var(--text);
+  font-family:var(--sans);
+  font-size:1rem;
+  padding:10px 2px;
+  transition:border-color .2s ease;
+}
+.field select{
+  appearance:none; -webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A9A093' fill='none' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 4px center;
+}
+.field select option{ background:var(--bg-panel); color:var(--text); }
+.field textarea{ resize:vertical; min-height:110px; font-family:var(--sans); }
+.field input:focus, .field select:focus, .field textarea:focus{
+  outline:none; border-color:var(--accent);
+}
+.field-error{ font-size:0.78rem; color:#C97A6A; min-height:1em; }
+
+.form-foot{
+  margin-top:8px;
+  display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+}
+.form-status{ font-size:0.88rem; color:var(--willow); }
+
+/* ============================================================
+   FOOTER
+============================================================ */
+.footer{
+  padding:40px 0;
+  border-top:1px solid var(--line);
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:16px;
+}
+.footer p{ color:var(--text-faint); font-size:0.85rem; }
+.footer a{ color:var(--text-faint); font-size:0.85rem; }
+.footer a:hover{ color:var(--text-dim); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+============================================================ -->
+<nav class="nav" id="siteNav">
+  <div class="wrap">
+    <a href="#top" class="nav-logo">Nirazan Pandey <span>Photographer</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span></button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <p class="hero-kicker">Nirazan Pandey — based in Adelaide, working worldwide</p>
+    <h1>Moments, held still.</h1>
+    <p class="hero-sub">Portraits, landscapes, weddings and match-day photography — including team coverage for Southern Knights CC.</p>
+    <div class="hero-cta">
+      <a href="#work" class="btn">View the work</a>
+      <a href="#contact" class="btn btn-quiet">Book a session</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     PORTFOLIO / GALLERY
+============================================================ -->
+<section class="gallery-section section-pad" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Selected work</h2>
+      <p>A cross-section of recent projects — filter by category, or click any frame to view it in full.</p>
+    </div>
+
+    <div class="tabs" id="tabs" role="tablist" aria-label="Portfolio categories">
+      <button class="tab-btn active" data-cat="all" role="tab" aria-selected="true">All</button>
+      <button class="tab-btn" data-cat="portraits" role="tab" aria-selected="false">Portraits</button>
+      <button class="tab-btn" data-cat="landscapes" role="tab" aria-selected="false">Landscapes</button>
+      <button class="tab-btn" data-cat="events" role="tab" aria-selected="false">Events</button>
+      <button class="tab-btn" data-cat="sport" role="tab" aria-selected="false">Sport</button>
+      <button class="tab-btn" data-cat="commercial" role="tab" aria-selected="false">Commercial</button>
+    </div>
+
+    <!-- Gallery grid. Each item carries data-cat (for filtering) and
+         data-full (full-resolution image used by the lightbox). -->
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- Lightbox overlay (single instance, populated by JS) -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+  <button class="lb-prev" id="lbPrev" aria-label="Previous image">&#8249;</button>
+  <figure>
+    <img id="lbImg" src="" alt="">
+    <figcaption id="lbCaption"></figcaption>
+  </figure>
+  <button class="lb-next" id="lbNext" aria-label="Next image">&#8250;</button>
+</div>
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<section class="about-section section-pad" id="about">
+  <div class="wrap about-grid">
+    <div class="about-portrait">
+      <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&q=80&auto=format&fit=crop" alt="Portrait of Nirazan Pandey holding a camera" loading="lazy">
+    </div>
+    <div class="about-copy">
+      <h2>About</h2>
+      <p><strong>I'm Nirazan Pandey</strong>, a photographer working across portraits, landscapes and events. I'm also the team photographer for <strong>Southern Knights CC</strong>, covering match days, training and club life through the season.</p>
+      <p>My approach stays out of the way of the moment. I spend the first few minutes of any session just watching — how someone stands, how light falls across a room, where a game turns — and only then start shooting. The best frames are usually the ones nobody was posing for.</p>
+      <p>Whether it's a quiet portrait session, a wedding, or a Saturday afternoon at the ground, the goal is the same: images that still feel true years from now.</p>
+      <ul class="specialty-list">
+        <li>Portrait sessions</li>
+        <li>Landscape &amp; travel</li>
+        <li>Weddings &amp; events</li>
+        <li>Commercial &amp; product</li>
+        <li>Southern Knights CC — match day</li>
+        <li>Custom assignments</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SERVICES
+============================================================ -->
+<section class="services-section section-pad" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Services</h2>
+      <p>Every project starts with a short conversation about what you need — packages below are a starting point, not a fixed menu.</p>
+    </div>
+
+    <div class="service-list">
+      <div class="service-row">
+        <h3>Portrait session</h3>
+        <p>A one-hour session, one location, fully edited high-resolution gallery delivered within a week.</p>
+        <div class="service-price">From $220<small>per session</small></div>
       </div>
-    </section>
+      <div class="service-row">
+        <h3>Wedding &amp; event coverage</h3>
+        <p>Full-day or half-day coverage, second shooter available on request, private online gallery for guests.</p>
+        <div class="service-price">From $950<small>per event</small></div>
+      </div>
+      <div class="service-row">
+        <h3>Club &amp; team photography</h3>
+        <p>Season-long or single fixture coverage for sports clubs — match action, squad portraits and club media assets.</p>
+        <div class="service-price">From $180<small>per fixture</small></div>
+      </div>
+      <div class="service-row">
+        <h3>Commercial &amp; product</h3>
+        <p>Product, brand and editorial photography, licensed for web, print or campaign use.</p>
+        <div class="service-price">Custom quote<small>scoped per project</small></div>
+      </div>
+    </div>
 
-    <!-- NAV -->
-    <nav class="bg-primary text-white flex flex-wrap justify-center gap-4 py-3 sticky top-0 z-50 text-sm sm:text-base">
-      <a href="#about" class="hover:underline">About</a>
-      <a href="#skills" class="hover:underline">Skills</a>
-      <a href="#projects" class="hover:underline">Projects</a>
-      <a href="#experience" class="hover:underline">Experience</a>
-      <a href="#contact" class="hover:underline">Contact</a>
-    </nav>
+    <div class="services-note">
+      <p>Every quote is tailored to scope, location and usage rights — get in touch with a rough idea of the project and I'll follow up with a proposal within two business days.</p>
+      <a href="#contact" class="btn">Request a quote</a>
+    </div>
+  </div>
+</section>
 
-    <!-- MAIN -->
-    <main class="max-w-5xl mx-auto px-6 py-12 space-y-16">
-
-      <!-- ABOUT -->
-      <section id="about">
-        <h2 class="text-2xl sm:text-3xl font-semibold text-accent mb-4">About Me</h2>
-        <p class="leading-relaxed text-sm sm:text-base">
-          I am a dedicated and proactive student striving for academic excellence,
-          leadership, and innovation while contributing meaningfully to the tech community.
-        </p>
-      </section>
-
-      <!-- SKILLS -->
-      <section id="skills">
-        <h2 class="text-2xl sm:text-3xl font-semibold text-accent mb-4">Skills</h2>
-        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 list-disc list-inside text-sm sm:text-base">
-          <li>Python, R, Dart, SQL, Java</li>
-          <li>Django, FastAPI, REST API</li>
-          <li>JavaScript</li>
-          <li>MySQL, Firebase</li>
-          <li>Git, GitHub</li>
-          <li>NumPy, Pandas</li>
-        </ul>
-      </section>
-
-      <!-- PROJECTS -->
-      <section id="projects">
-        <h2 class="text-2xl sm:text-3xl font-semibold text-accent mb-6">Projects</h2>
-
-        <!-- BASIC -->
-        <h3 class="text-xl font-semibold text-accentLight mb-2">Basic Projects</h3>
-        <ul class="space-y-2 list-disc list-inside text-sm sm:text-base mb-6">
-          <li>Password Generator</li>
-          <li>Pomodoro Timer</li>
-          <li>Weather App</li>
-        </ul>
-
-        <!-- ADVANCED (NEW) -->
-        <h3 class="text-xl font-semibold text-accentLight mb-2">Advanced Projects</h3>
-        <ul class="space-y-3 list-disc list-inside text-sm sm:text-base">
-          <li>
-            <strong>Save Supermarket</strong> – Retail billing and inventory management system
-            with real-time stock tracking.
-          </li>
-          <li>
-            <strong>CHAI GPT</strong> – AI-powered tea shop assistant using Python and API logic.
-          </li>
-          <li>
-            <strong>Movie Recommendation System</strong> – Data-driven recommendation engine
-            using machine learning concepts.
-          </li>
-          <li>
-            <strong>Stock Price Visualization</strong> – Interactive financial data analysis tool.
-          </li>
-        </ul>
-      </section>
-
-      <!-- EXPERIENCE -->
-      <section id="experience">
-        <h2 class="text-2xl sm:text-3xl font-semibold text-accent mb-4">Experience</h2>
-        <ul class="space-y-2 text-sm sm:text-base">
-          <li>
-            Intern – Flutter Developer, Pastel Software Solutions (2022–2023)
-          </li>
-          <li>
-            Mobile App Developer, Sarbatra Inc (2023–2025)
-          </li>
-        </ul>
-      </section>
-
-      <!-- CONTACT -->
-      <section id="contact">
-        <h2 class="text-2xl sm:text-3xl font-semibold text-accent mb-4">Contact</h2>
-        <p class="text-sm sm:text-base"><strong>Phone:</strong> +61 434 398 644</p>
-        <p class="text-sm sm:text-base">
-          <strong>Email:</strong>
-          <a href="mailto:diwashacharya30@gmail.com" class="text-blue-500 hover:underline">
-            diwashacharya30@gmail.com
+<!-- ============================================================
+     CONTACT
+============================================================ -->
+<section class="contact-section section-pad" id="contact">
+  <div class="wrap contact-grid">
+    <div class="contact-info">
+      <h2>Get in touch</h2>
+      <p>Tell me a little about what you're planning and I'll reply with availability and a quote.</p>
+      <ul class="contact-channels">
+        <li>
+          <a href="mailto:hello@nirazanpandey.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>
+              <span class="channel-label">Email</span>
+              <span class="channel-value">hello@nirazanpandey.com</span>
+            </span>
           </a>
-        </p>
-        <p class="text-sm sm:text-base">
-          <strong>GitHub:</strong>
-          <a href="https://github.com/Diwashach30" class="text-blue-500 hover:underline">
-            Diwashach30
+        </li>
+        <li>
+          <a href="tel:+61400000000">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 005 5L14 13l5 2v4a2 2 0 01-2 2A15 15 0 014 6a2 2 0 012-2z"/></svg>
+            <span>
+              <span class="channel-label">Phone</span>
+              <span class="channel-value">+61 400 000 000</span>
+            </span>
           </a>
-        </p>
-      </section>
+        </li>
+        <li>
+          <a href="https://instagram.com/nirazan.pandey" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+            <span>
+              <span class="channel-label">Instagram</span>
+              <span class="channel-value">@nirazan.pandey</span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
 
-    </main>
+    <!-- Contact form. Client-side only: validates and shows a
+         confirmation message. Wire the fetch() call in the JS
+         below up to a real backend or a form service (e.g. your
+         own API, Formspree, Netlify Forms) to actually send it. -->
+    <form id="contactForm" novalidate>
+      <div class="form-grid">
+        <div class="field">
+          <label for="fName">Name</label>
+          <input type="text" id="fName" name="name" required>
+          <span class="field-error" id="err-name"></span>
+        </div>
+        <div class="field">
+          <label for="fEmail">Email</label>
+          <input type="email" id="fEmail" name="email" required>
+          <span class="field-error" id="err-email"></span>
+        </div>
+        <div class="field">
+          <label for="fService">Service type</label>
+          <select id="fService" name="service" required>
+            <option value="" disabled selected>Select one</option>
+            <option>Portrait session</option>
+            <option>Wedding / event</option>
+            <option>Club / team photography</option>
+            <option>Commercial / product</option>
+            <option>Other</option>
+          </select>
+          <span class="field-error" id="err-service"></span>
+        </div>
+        <div class="field">
+          <label for="fDate">Preferred date</label>
+          <input type="date" id="fDate" name="date">
+        </div>
+        <div class="field full">
+          <label for="fMessage">Message</label>
+          <textarea id="fMessage" name="message" required placeholder="Tell me about the project — location, timing, anything useful."></textarea>
+          <span class="field-error" id="err-message"></span>
+        </div>
+      </div>
+      <div class="form-foot">
+        <button type="submit" class="btn">Send inquiry</button>
+        <span class="form-status" id="formStatus" role="status" aria-live="polite"></span>
+      </div>
+    </form>
+  </div>
+</section>
 
-    <footer class="text-center py-6 bg-gray-900 text-white mt-12 text-sm">
-      &copy; 2025 Diwash Sharma Acharya. All rights reserved.
-    </footer>
+<footer class="footer">
+  <div class="wrap footer" style="border:none; padding:0;">
+    <p>&copy; <span id="year"></span> Nirazan Pandey. All rights reserved.</p>
+    <a href="#top">Back to top</a>
+  </div>
+</footer>
 
-  </body>
+<script>
+/* ============================================================
+   DATA
+   Central source for gallery images. Swap the `full` / thumbnail
+   URLs for your own work — everything else (filtering, lightbox,
+   captions) is driven off this array.
+============================================================ */
+const PHOTOS = [
+  // Portraits
+  { cat:'portraits', title:'Editorial Portrait, Golden Light', thumb:'https://www.instagram.com/p/DdI6YMaHzPt3QuzKer3BziK2MxhgwErMtg-MLE0/?img_index=1?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=1600&q=85&auto=format&fit=crop' },
+  { cat:'portraits', title:'Studio Portrait Series', thumb:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=1600&q=85&auto=format&fit=crop' },
+  { cat:'portraits', title:'Environmental Portrait', thumb:'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=1600&q=85&auto=format&fit=crop' },
+  { cat:'portraits', title:'Natural Light Close-Up', thumb:'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1600&q=85&auto=format&fit=crop' },
+  // Landscapes
+  { cat:'landscapes', title:'Ridge Line at Dawn', thumb:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=85&auto=format&fit=crop' },
+  { cat:'landscapes', title:'Forest Light', thumb:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&q=85&auto=format&fit=crop' },
+  { cat:'landscapes', title:'Alpine Range', thumb:'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1600&q=85&auto=format&fit=crop' },
+  { cat:'landscapes', title:'Valley Green', thumb:'https://images.unsplash.com/photo-1500534623283-312aade485b7?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1500534623283-312aade485b7?w=1600&q=85&auto=format&fit=crop' },
+  // Events
+  { cat:'events', title:'Wedding Day', thumb:'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1600&q=85&auto=format&fit=crop' },
+  { cat:'events', title:'First Dance', thumb:'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1600&q=85&auto=format&fit=crop' },
+  { cat:'events', title:'Celebration Night', thumb:'https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1511578314322-379afb476865?w=1600&q=85&auto=format&fit=crop' },
+  { cat:'events', title:'Reception Details', thumb:'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=1600&q=85&auto=format&fit=crop' },
+  // Sport — Southern Knights CC
+  { cat:'sport', title:'Match Day, Southern Knights CC', thumb:'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1600&q=85&auto=format&fit=crop' },
+  { cat:'sport', title:'Pre-Season Training', thumb:'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1600&q=85&auto=format&fit=crop' },
+  { cat:'sport', title:'Fitness Session', thumb:'https://images.unsplash.com/photo-1517649763962-0c623066013b?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1600&q=85&auto=format&fit=crop' },
+  { cat:'sport', title:'Southern Knights CC, Home Ground', thumb:'https://images.unsplash.com/photo-1552667466-07770ae110d0?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1552667466-07770ae110d0?w=1600&q=85&auto=format&fit=crop' },
+  // Commercial
+  { cat:'commercial', title:'Product Study — Timepiece', thumb:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1600&q=85&auto=format&fit=crop' },
+  { cat:'commercial', title:'Product Study — Footwear', thumb:'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=1600&q=85&auto=format&fit=crop' },
+  { cat:'commercial', title:'Still Life', thumb:'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=1600&q=85&auto=format&fit=crop' },
+  { cat:'commercial', title:'Product Study — Café Brand', thumb:'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&q=75&auto=format&fit=crop', full:'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=1600&q=85&auto=format&fit=crop' },
+];
+
+const CAT_LABEL = {
+  portraits:'Portraits', landscapes:'Landscapes', events:'Events',
+  sport:'Sport', commercial:'Commercial'
+};
+
+/* ============================================================
+   RENDER GALLERY GRID
+============================================================ */
+const grid = document.getElementById('grid');
+PHOTOS.forEach((p, i) => {
+  const item = document.createElement('div');
+  item.className = 'grid-item';
+  item.dataset.cat = p.cat;
+  item.dataset.index = i;
+  item.innerHTML = `
+    <img src="${p.thumb}" alt="${p.title}" loading="lazy"
+         onerror="this.closest('.grid-item').style.background='linear-gradient(135deg,#201D19,#14120F)'; this.style.display='none';">
+    <div class="cap">
+      <div class="cap-title">${p.title}</div>
+      <div class="cap-cat">${CAT_LABEL[p.cat]}</div>
+    </div>`;
+  item.addEventListener('click', () => openLightbox(i));
+  grid.appendChild(item);
+});
+
+/* ============================================================
+   TAB FILTERING
+============================================================ */
+const tabs = document.querySelectorAll('.tab-btn');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected','true');
+    const cat = tab.dataset.cat;
+    document.querySelectorAll('.grid-item').forEach(el => {
+      const show = (cat === 'all' || el.dataset.cat === cat);
+      el.dataset.hidden = show ? 'false' : 'true';
+    });
+  });
+});
+
+/* ============================================================
+   LIGHTBOX
+============================================================ */
+const lightbox   = document.getElementById('lightbox');
+const lbImg      = document.getElementById('lbImg');
+const lbCaption  = document.getElementById('lbCaption');
+let currentIndex = 0;
+
+function visibleIndices(){
+  // Respect whatever tab is currently active, so prev/next stays
+  // within the filtered set rather than jumping categories.
+  const activeCat = document.querySelector('.tab-btn.active').dataset.cat;
+  return PHOTOS
+    .map((p, i) => ({ p, i }))
+    .filter(({p}) => activeCat === 'all' || p.cat === activeCat)
+    .map(({i}) => i);
+}
+
+function openLightbox(index){
+  currentIndex = index;
+  renderLightbox();
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+function renderLightbox(){
+  const p = PHOTOS[currentIndex];
+  lbImg.src = p.full;
+  lbImg.alt = p.title;
+  lbCaption.textContent = `${p.title} — ${CAT_LABEL[p.cat]}`;
+}
+function step(dir){
+  const list = visibleIndices();
+  const pos = list.indexOf(currentIndex);
+  const next = (pos + dir + list.length) % list.length;
+  currentIndex = list[next];
+  renderLightbox();
+}
+
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lbPrev').addEventListener('click', () => step(-1));
+document.getElementById('lbNext').addEventListener('click', () => step(1));
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => {
+  if(!lightbox.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowLeft') step(-1);
+  if(e.key === 'ArrowRight') step(1);
+});
+
+/* ============================================================
+   NAV: scroll state + mobile menu
+============================================================ */
+const nav = document.getElementById('siteNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+const navToggle = document.getElementById('navToggle');
+const navLinks  = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  navToggle.classList.toggle('open', open);
+  navToggle.setAttribute('aria-expanded', open);
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navLinks.classList.remove('open');
+  navToggle.classList.remove('open');
+  navToggle.setAttribute('aria-expanded', false);
+}));
+
+/* ============================================================
+   CONTACT FORM
+   Client-side validation + a friendly confirmation message.
+   Replace the marked block with a real submission (fetch() to
+   your own API route, or a form backend such as Formspree /
+   Netlify Forms) to actually deliver the message.
+============================================================ */
+const form = document.getElementById('contactForm');
+const status = document.getElementById('formStatus');
+
+function setError(id, msg){
+  document.getElementById('err-' + id).textContent = msg || '';
+}
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let valid = true;
+
+  const name = form.name.value.trim();
+  if(!name){ setError('name', 'Enter your name.'); valid = false; } else setError('name');
+
+  const email = form.email.value.trim();
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if(!emailOk){ setError('email', 'Enter a valid email address.'); valid = false; } else setError('email');
+
+  if(!form.service.value){ setError('service', 'Select a service type.'); valid = false; } else setError('service');
+
+  const message = form.message.value.trim();
+  if(!message){ setError('message', 'Add a short message.'); valid = false; } else setError('message');
+
+  if(!valid){
+    status.textContent = '';
+    return;
+  }
+
+  // --- Integration point -------------------------------------
+  // e.g. fetch('/api/contact', { method:'POST', body: new FormData(form) })
+  // -------------------------------------------------------------
+
+  status.textContent = `Thanks, ${name} — your inquiry has been noted. I'll reply within two business days.`;
+  form.reset();
+});
+
+/* Footer year */
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
 </html>
